@@ -1,0 +1,374 @@
+/* general -------------------------------------------------------------------------------------- */
+/*@import url(http://fonts.googleapis.com/css?family=Sancreek&subset=latin-ext);*/
+
+/*@import url(http://fonts.googleapis.com/css?family=Fredericka+the+Great);
+@import url(http://fonts.googleapis.com/css?family=Overlock&subset=latin,latin-ext);*/
+
+@import url(http://fonts.googleapis.com/css?family=Forum&subset=latin,cyrillic-ext,latin-ext,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Alegreya+SC:400,700&subset=latin,latin-ext);
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 100%; 
+}
+html {
+    height: 100%;
+}
+body {
+    background: #ffffff;
+    height: 100%;
+    font-family: 'Forum', serif;
+}
+h1, h2, h3 {
+    font-family: 'Alegreya SC', serif;
+}
+nav li {
+    display: inline;
+    list-style: none;
+}
+a {
+    color: #005288;
+    color: #00375c;
+}
+a:hover, li:hover, nav ul li:hover {
+    text-decoration: none;
+    color: #000000;
+}
+.fullwidth {
+    width: 100%;
+}
+
+/* buttons -------------------------------------------------------------------------------------- */
+.controls img {
+    background: #00375c;
+}
+.controls img:hover {
+    background: #000;
+    cursor: pointer;
+}
+.controls {
+    position: relative;
+    bottom: -1px;
+    display: block;
+    float: right;
+}
+.controls:hover {
+    cursor: default;
+}
+.clickable {
+    text-align: center;
+    font-family: 'Alegreya SC', serif;
+}
+.clickable:hover {
+    cursor: pointer;
+    background: #e0ecff;
+}
+
+/* header --------------------------------------------------------------------------------------- */
+/* logo */
+body > header {
+    height: 6em;
+    background: #000000;
+    color: #d3d3d3;
+    position: relative;
+}
+/* top_menu */
+body > header > h1 {
+    padding-top: 0.5em;
+    text-align: center;
+    font-size: 2em;
+}
+body > header > nav {
+    position: absolute;
+    bottom: 0;
+    background: #333333;
+    background: #00375c;
+    width: 100%;
+    text-align: center;
+    padding: 0.5em 0;
+}
+body > header > nav li {
+    background: #333333;
+    background: #00375c;
+    padding: 0.5em 1em;
+    border-left: 1px solid #666666;
+    border-left: 1px dotted #333333;
+}
+body > header > nav li:first-child {
+    border-left: 0;
+}
+body > header > nav li:hover, body > header > nav li.active {
+    background: #666666;
+    background: #005288;
+}
+li.active a {
+    text-decoration: none;
+}
+body > header > nav li a {
+    color: #d3d3d3;
+}
+body > header > nav li:hover a {
+    color: #d3d3d3;
+}
+header > h2 {
+    font-size: 1.5em;
+}
+h2 span {
+    color: #333333;
+}
+header > h1 span {
+    color: #333333;
+}
+
+/* main content --------------------------------------------------------------------------------- */
+#content {
+    margin-left: 10em;
+    margin-right: 10em;
+    min-height: 25em;
+}
+#content > header h1 {
+    font-size: 1.5em;
+    /*border-bottom: 1px dotted #333333;*/
+    -moz-box-shadow: 1px 1px 3px 4px #ccc;
+    -webkit-box-shadow: 1px 1px 3px 4px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+    padding: 0.33em;
+    margin-top: 0.33em;
+}
+
+/* category menu -------------------------------------------------------------------------------- */
+#right {
+    margin-top: 1em;
+}
+#cat_menu {
+    text-align: center;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    -moz-box-shadow: 1px 1px 3px 4px #ccc;
+    -webkit-box-shadow: 1px 1px 3px 4px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+}
+#cat_menu li {
+    list-style: none;
+    display: inline;
+    padding: 0.5em;
+    border-left: 1px solid #ccc;
+}
+#cat_menu li:first-child {
+    border-left: 0;
+}
+#cat_menu li:hover a, #cat_menu li.active a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+}
+
+/* people --------------------------------------------------------------------------------------- */
+
+
+/* hot jobs ------------------------------------------------------------------------------------- */
+#hot_jobs {
+    min-height: 10em;
+}
+
+/* hot jobs ------------------------------------------------------------------------------------- */
+#submenu nav ul {
+    display: block;
+    padding-bottom: 0.5em;
+    border: 0;
+}
+
+/* available people ----------------------------------------------------------------------------- */
+#available_people {
+    min-height: 10em;
+}
+#available_people nav ul {
+    border-bottom: 1px solid #333333;
+    display: none;
+}
+
+/* footer --------------------------------------------------------------------------------------- */
+footer {
+    background: #000000;
+    color: #d3d3d3;
+    text-align: center;
+    margin-top: 0.5em;
+}
+footer #trace {
+    font-size: 0.75em;
+}
+
+
+/* boards --------------------------------------------------------------------------------------- */
+.applications {
+    margin-top: 0.5em;
+}
+article {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    position: relative;
+    -moz-box-shadow: 1px 1px 3px 4px #ccc;
+    -webkit-box-shadow: 1px 1px 3px 4px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+}
+.boards article {
+    float: left;
+    width: 19em;
+    height: 11em;
+    margin: 0.5em 0.5em 0 0;
+    overflow: hidden;
+}
+.boards article:hover, .boards article.updated {
+    background: #e0ecff;
+    cursor: pointer;
+}
+.boards article.inactive {
+    clear: both;
+    float: none;
+    width: inherit;
+    height: inherit;
+    margin: 0.5em 0 0 0;
+}
+.boards article.inactive:hover {
+    background: inherit;
+    cursor: inherit;
+}
+section > header{
+    clear: both;
+}
+article, aside {
+    margin-bottom: 0.5em;
+}
+h1 aside {
+    margin: 0;
+    display: inline;
+    font-size: 0.66666em;
+}
+aside a {
+    background: transparent url('../img/icon-link-black.png') no-repeat 0em 0.35em;
+    padding-left: 0.5em;
+    margin-right: 0.5em;
+}
+article p {
+    white-space: pre-wrap;
+}
+
+/* students ------------------------------------------------------------------------------------- */
+.name_list  .name_cell {
+    width: 20%;
+    text-align: left;
+}
+.name_list  .descr_cell {
+    width: 50%;
+    text-align: left;
+}
+.name_list {
+    border-collapse: collapse;
+}
+.name_list td {
+    text-align: right;
+}
+.name_list td, .name_list th {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+}
+.name_list td:first-child, .name_list th:first-child {
+    border-left: 0;
+}
+.name_list {
+    margin-top: 0.5em;
+    -moz-box-shadow: 1px 1px 3px 4px #ccc;
+    -webkit-box-shadow: 1px 1px 3px 4px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+}
+
+
+/* popup ---------------------------------------------------------------------------------------- */
+#popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 12;
+    display: none;
+}
+#popup_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 640px;
+    height: 480px;
+    margin-top: -240px;
+    margin-left: -320px;
+    /*background: #ffa54f;*/
+    background: #fffafa;
+    /*border: 3px solid #bb610b;*/
+    border: 1px solid #000000;
+    padding: 0.5em;
+    overflow-y: auto;
+}
+#popup_close_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5em;
+    color: #000;
+}
+#popup_content > div > section {
+    margin: 0 1em;
+}
+#popup_content > div {
+    margin-top: 1.5em;
+}
+
+/* forms ---------------------------------------------------------------------------------------- */
+.general_form {
+    text-align: left;
+    margin-top: 0.5em;
+}
+.general_form fieldset {
+    border: 0;
+    margin-top: 0.5em;
+    -moz-box-shadow: 1px 1px 3px 4px #ccc;
+    -webkit-box-shadow: 1px 1px 3px 4px #ccc;
+    box-shadow: 1px 1px 3px 2px #ccc;
+    padding: 0.5em;
+}
+.general_form label {
+    display: block;
+    position: relative;
+    top: 0.5em;
+}
+.general_form textarea, .general_form input, .general_form select {
+    margin-left: 15%;
+    width: 83%;
+    position: relative;
+    top: -1em;
+    padding: 0.3em;
+    border: 1px solid #ccc;
+}
+.general_form input {
+    font-size: 1.1em;
+}
+.general_form input[type="submit"] {
+    margin: -0.5em;
+    padding: 0.5em;
+    margin-left: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 0;
+    top: 0;
+    font-family: 'Alegreya SC', serif;
+}
+.general_form input[type="submit"]:hover {
+    cursor: pointer;
+    background: #e0ecff;
+}
+.general_form .form_error {
+    display: none;
+}
+.error {
+    color: #aa0000;
+}
