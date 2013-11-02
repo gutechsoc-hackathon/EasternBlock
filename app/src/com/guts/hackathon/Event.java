@@ -1,12 +1,13 @@
 package com.guts.hackathon;
 
 import java.sql.Date;
-
-import android.util.Pair;
+import java.util.ArrayList;
 
 public class Event {
-	String title;
+	double ID;
+	String locName;
 	String description;
 	Date begin, end;
 	double latitude, longitude;
+	ArrayList<String> tags, media;
 }
