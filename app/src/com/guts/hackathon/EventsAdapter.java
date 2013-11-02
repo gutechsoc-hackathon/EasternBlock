@@ -4,17 +4,20 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class EventsAdapter extends BaseAdapter {
 	
 	private Activity activity;
 	private static LayoutInflater inflater=null;
 	private ArrayList<Event> events;
+	
     public EventsAdapter(Activity a) {
     	events = new ArrayList<Event>();
         activity = a;
@@ -23,13 +26,11 @@ public class EventsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return events.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return events.get(position);
 	}
 
@@ -45,6 +46,18 @@ public class EventsAdapter extends BaseAdapter {
         if(convertView==null) {
         	elem = inflater.inflate(R.layout.event, null);
         }
+        TextView locName = (TextView) elem.findViewById(R.id.locName);
+//        locName.setText(events.get(position).getLocation());
+        TextView description = (TextView) elem.findViewById(R.id.description);
+        description.setText(events.get(position).getDescription());
+        ImageView upButton = (ImageView) elem.findViewById(R.id.vote);
+        upButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
         return elem;
 	}
 
