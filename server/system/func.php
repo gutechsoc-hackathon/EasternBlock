@@ -13,7 +13,7 @@
             include BASE_DIR.'system/'.$className.'.php';
         // unspecified class
         else
-            throw new Exception ('A class undefined');
+            throw new Exception ('A class undefined: '.$className);
     }
     
     // error function

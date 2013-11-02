@@ -47,6 +47,12 @@
         {
             echo 'default base index<br/>';
         }
+
+        public function ajaxRespond ($response)
+        {
+            $json = json_encode ($response);
+            $this->render ('ajax/respond', array ('json' => $json) );
+        }
         
         // this method runs specified view, providing it with the variables
         // so that those variables seem local

@@ -31,7 +31,7 @@
         
         public static function getEmailFormat ($data)
         {
-            return preg_replace ('/[-0-9a-z_]+@[-0-9a-z_^\.]+\.[a-z]{2,6}/i', '', $data);
+            return preg_replace ('/[^a-z0-9_.@-]/i', '', $data);
         }
 
         public static function getSeo ($data)

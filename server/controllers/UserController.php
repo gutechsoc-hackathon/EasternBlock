@@ -8,15 +8,6 @@
         protected $defaultAction = 'dashboard';
         
         /**
-         * before everything else
-         */
-        protected function _beforeAction ()
-        {
-            // categories will be used a lot
-            System::registerConfig ('categories', Category::find ());
-        }
-        
-        /**
          * index page is basically a html page.
          */
         public function indexAction ()
@@ -37,19 +28,24 @@
          */
         public function loginAction ()
         {
-            // creating form
-            $form = new LoginForm ();
-            
-            // retrieving
-            if (!$form->retrieveData () || !$form->validate ())
-                $this->render ('user/login', array ('form' => $form));
-            else 
+            if (System::$user->checkAccess ('user'))
             {
-                // doing ldap authorisation if needed
-                System::$user = User::authenticate ($form->login, $form->password);
-                header ('Location: '.Html::getUrl ('user'));
+                // if already logged in -- log out
+                System::doMysql ("DELETE FROM ".Session::getTableName()." WHERE user_id = ".(System::$user->getPk()).";");
             }
-            //$this->render ('user/dashboard');
+
+            if (isset ($_REQUEST['email']) && isset ($_REQUEST['pass']))
+                System::$user = User::authenticate ($_REQUEST['email'], $_REQUEST['pass']);
+
+            if (System::$user->checkAccess ('user'))
+                $this->ajaxRespond ( array (
+                    'type' => 'auth_response',
+                    'data' => array (
+                        'sess_id' => System::$user->session->sess_id,
+                    ),
+                ) );
+            else
+                throw new GameError ('Authorisation failed');
         }
         
         /**
