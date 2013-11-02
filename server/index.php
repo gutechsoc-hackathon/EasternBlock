@@ -6,8 +6,7 @@
     // base directory constant
     define ('BASE_DIR', dirname (__FILE__).'/');
     // same constant, used for client side, such as including css
-    //define ('WEB_ROOT', 'http://localhost/guild/');
-    define ('WEB_ROOT', 'http://localhost/hackaton/');
+    define ('WEB_ROOT', 'http://localhost/hackaton/EasternBlock/server/');
     // other constants
     include BASE_DIR.'system/constants.php';
     // system functions, most notably: __autoload
