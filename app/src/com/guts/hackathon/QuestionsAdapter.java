@@ -1,5 +1,7 @@
 package com.guts.hackathon;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ public class QuestionsAdapter extends BaseAdapter {
 	
 	private Activity activity;
 	private static LayoutInflater inflater=null;
+	private ArrayList<Question> questions;
 	
     public QuestionsAdapter(Activity a) {
         activity = a;

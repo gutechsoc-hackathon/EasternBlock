@@ -14,8 +14,9 @@ public class EventsAdapter extends BaseAdapter {
 	
 	private Activity activity;
 	private static LayoutInflater inflater=null;
-
+	private ArrayList<Event> events;
     public EventsAdapter(Activity a) {
+    	events = new ArrayList<Event>();
         activity = a;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -23,13 +24,13 @@ public class EventsAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 2;
+		return events.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return 2;
+		return events.get(position);
 	}
 
 	@Override
