@@ -3,6 +3,15 @@
     <item
         android:id="@+id/action_forgot_password"
         android:showAsAction="never"
-        android:title="@string/action_forgot_password"/>
+        android:title="@string/action_forgot_password" 
+        android:enabled="false"/>
+    
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings" android:enabled="false"/>
+    
+    <item
+        android:id="@+id/profile"
+        android:title="@string/profile" android:enabled="false"/>
 
 </menu>

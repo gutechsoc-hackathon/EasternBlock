@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,9 +47,15 @@ public class LoginActivity extends Activity {
 	// UI references.
 	private EditText mEmailView;
 	private EditText mPasswordView;
+	private EditText mEmailViewRep;
+	private EditText mPasswordViewRep;
+	private EditText name;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	private Menu menu;
+	private Button logIn, signUp, register;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +63,15 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 
+		name = (EditText) findViewById(R.id.name);
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
+		mEmailViewRep = (EditText) findViewById(R.id.email_rep);
 		mEmailView.setText(mEmail);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
+		mPasswordViewRep = (EditText) findViewById(R.id.password_rep);
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -78,20 +89,72 @@ public class LoginActivity extends Activity {
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		findViewById(R.id.log_in_button).setOnClickListener(
+		logIn = (Button) findViewById(R.id.log_in_button);
+		logIn.setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						attemptLogin();
 					}
 				});
+		
+		signUp = (Button) findViewById(R.id.sign_up_button);
+		register = (Button) findViewById(R.id.register_button);
+		
+		signUp.setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						mEmailViewRep.setVisibility(1);
+						mPasswordViewRep.setVisibility(1);
+						name.setVisibility(1);
+						name.requestFocus(1);
+						logIn.setVisibility(View.GONE);
+						signUp.setVisibility(View.GONE);
+						register.setVisibility(1);
+						setTitle("Register");
+					}
+				});
+		
+		
+		
+		register.setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						signUp.setVisibility(View.GONE);
+					}
+				});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		this.menu = menu;
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
+		
+		if(logedIn){
+			showOption(R.id.settings);
+			showOption(R.id.action_forgot_password);
+			hideOption(R.id.profile);
+		} else {
+			hideOption(R.id.settings);
+			hideOption(R.id.action_forgot_password);
+			showOption(R.id.profile);
+		}
 		return true;
+	}
+	
+	private void hideOption(int id)
+	{
+	    MenuItem item = menu.findItem(id);
+	    item.setVisible(false);
+	}
+
+	private void showOption(int id)
+	{
+	    MenuItem item = menu.findItem(id);
+	    item.setVisible(true);
 	}
 
 	/**
