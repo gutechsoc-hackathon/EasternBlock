@@ -18,7 +18,7 @@ public class EventsAdapter extends BaseAdapter {
 	
     public EventsAdapter(Activity a) {
         activity = a;
-        elements = new ArrayList<View>();
+        //elements = new ArrayList<View>();
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
