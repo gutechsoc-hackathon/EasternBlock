@@ -40,6 +40,11 @@
             //$destin = array ('-', '-', '-', '-', '-', '-');
             return str_replace ($source, '-', strtolower (preg_replace ('/[^a-zA-Z0-9,_–—+@-]/', '', $data)));
         }
+
+        public static function getMysqlSafe ($data)
+        {
+            return System::mysqlRealEscapeString ($data);
+        }
         
         /**
          * wrapper for given validators 

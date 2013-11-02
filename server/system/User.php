@@ -28,7 +28,12 @@
                 // otherwise we will have guest
                 if (isset ($u[0]))
                 {
-                    $sess = new Session();
+                    $sess = Session::find ("user_id = ".$u[0]->getPk());
+                    if (!empty ($sess))
+                        $sess = $sess[0];
+                    else
+                        $sess = new Session();
+
                     $sess->sess_id = md5 (microtime ());
                     $sess->user_id = $u[0]->getPk ();
                     $sess->save();
