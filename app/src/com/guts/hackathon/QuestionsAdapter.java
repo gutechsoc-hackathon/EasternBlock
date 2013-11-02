@@ -1,5 +1,7 @@
 package com.guts.hackathon;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ public class QuestionsAdapter extends BaseAdapter {
 	
 	private Activity activity;
 	private static LayoutInflater inflater=null;
+	private ArrayList<Question> questions;
 	
     public QuestionsAdapter(Activity a) {
         activity = a;
@@ -20,13 +23,13 @@ public class QuestionsAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return questions.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return questions.get(position);
 	}
 
 	@Override

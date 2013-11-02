@@ -1,17 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/log_in"
-        android:title="@string/log_in"/>
+        android:id="@+id/action_forgot_password"
+        android:showAsAction="never"
+        android:title="@string/action_forgot_password" 
+        android:enabled="false"/>
+    
     <item
-        android:id="@+id/log_out"
-        android:title="@string/log_out" android:visible="true"/>        
-	        
-	<item
         android:id="@+id/settings"
         android:title="@string/settings" android:enabled="false"/>
-	
-	<item
+    
+    <item
         android:id="@+id/profile"
         android:title="@string/profile" android:enabled="false"/>
 
