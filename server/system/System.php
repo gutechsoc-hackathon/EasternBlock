@@ -30,36 +30,19 @@
             // loading language files
             T::init ();
             // making conncetions
-            //Profiler::trace ('start');
             System::dbConnect ();
-            //Profiler::trace ('mysql');
             
             // starting/resuming session
-            session_start ();
-            // checking, whether session expired
-            if (isset ($_SESSION['lastAction'])
-                    && $_SESSION['lastAction'] < $_SERVER['REQUEST_TIME'] - System::$_config['session']['duration'])
-            {
-                $tmp = User::authenticate ();
-                session_destroy ();
-                session_start ();
-            }
-            $_SESSION['lastAction'] = $_SERVER['REQUEST_TIME'];
-            
-            // creating guest or restoring session
-            //System::$user = User::authenticate ('petya', '123');
-            System::$user = User::authenticate ();
-            //Profiler::trace ('auth');
+            if (isset ($_REQUEST['sess_id']))
+                System::$user = User::authenticate ($_REQUEST['sess_id']);
             
             // running game logic
             Game::runLogic ();
             
-            //Profiler::trace ('before controller');
             // running the controller, that should have been provided in the get string
             if (!isset ($_GET['r']) || !$_GET['r'])
                 $_GET['r'] = System::$_config['route']['default'];
             System::runController ($_GET['r']);
-            //Profiler::trace ('controller');
         }
         
         /**

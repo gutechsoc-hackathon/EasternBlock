@@ -31,7 +31,7 @@
         
         public static function getEmailFormat ($data)
         {
-            return preg_replace ('/[-0-9a-z_]+@[-0-9a-z_^\.]+\.[a-z]{2,6}/i', '', $data);
+            return preg_replace ('/[^a-z0-9_.@-]/i', '', $data);
         }
 
         public static function getSeo ($data)
@@ -39,6 +39,11 @@
             $source = array (' ', ',', '_', '–', '—', '+', '@');
             //$destin = array ('-', '-', '-', '-', '-', '-');
             return str_replace ($source, '-', strtolower (preg_replace ('/[^a-zA-Z0-9,_–—+@-]/', '', $data)));
+        }
+
+        public static function getMysqlSafe ($data)
+        {
+            return System::mysqlRealEscapeString ($data);
         }
         
         /**

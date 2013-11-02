@@ -9,4 +9,10 @@
     <string name="profile">Profile</string>
     <string name="hello_world">Hello world!</string>
 
+    <string-array name="expiration_array">
+        <item>Today</item>
+        <item>This week</item>
+        <item>This month</item>
+    </string-array>
+
 </resources>

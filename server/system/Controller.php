@@ -47,6 +47,23 @@
         {
             echo 'default base index<br/>';
         }
+
+        public function ajaxFail ($response)
+        {
+            $this->ajaxRespond ('error', array ('msg' => $response));
+        }
+
+        public function ajaxSuccess ()
+        {
+            $this->ajaxRespond ('success');
+        }
+        
+        public function ajaxRespond ($type, $data = array ())
+        {
+            $response = array ('type' => $type, 'data' => $data);
+            $json = json_encode ($response);
+            $this->render ('ajax/respond', array ('json' => $json) );
+        }
         
         // this method runs specified view, providing it with the variables
         // so that those variables seem local

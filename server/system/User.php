@@ -8,6 +8,7 @@
             'questions' => array (HAS_MANY, 'Question', 'user_id'),
             'events' => array (HAS_MANY, 'Event', 'user_id'),
             'media' => array (HAS_MANY, 'Media', 'user_id'),
+            'session' => array (HAS_MUTABLE_ONE, 'Session', 'user_id'),
         );
         
         /**
@@ -15,7 +16,9 @@
          */
         public static function authenticate ($email = null, $pass = null)
         {
-            if ($email !== null && $pass !== null)
+            if (System::$user && System::$user->checkAccess ('user'))
+                return System::$user;
+            else if ($email !== null && $pass !== null)
             {
                 // email
                 $email = Validators::getEmailFormat ($email);
@@ -25,19 +28,28 @@
                 // otherwise we will have guest
                 if (isset ($u[0]))
                 {
-                    session_regenerate_id ();
-                    $_SESSION['id'] = $u[0]->getPk ();
-                    //$u[0]->player->online = 1;
+                    $sess = Session::find ("user_id = ".$u[0]->getPk());
+                    if (!empty ($sess))
+                        $sess = $sess[0];
+                    else
+                        $sess = new Session();
+
+                    $sess->sess_id = md5 (microtime ());
+                    $sess->user_id = $u[0]->getPk ();
+                    $sess->save();
                     return $u[0];
                 }
                 else
                     throw new GameError ('Bad username or password');
             }
-            else if (isset ($_SESSION['id']))
+            else if ($email != null)
             {
-                // restore
-                $_SESSION['id'] = Validators::getAlfaNum ($_SESSION['id']);
-                return User::findByPk ($_SESSION['id']);
+                // in this case, it is actually session id
+                // so, restore
+                $sess_id = Validators::getLoginFormat ($email);
+                $sess = Session::find("sess_id = '".$sess_id."'");
+                if (!empty ($sess))
+                    return User::findByPk ($sess[0]->user_id);
             }
             
             // else guest
