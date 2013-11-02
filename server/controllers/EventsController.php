@@ -20,7 +20,10 @@ class EventsController extends Controller
      */
     public function listAction ()
     {
-        $this->render ('events/list');
+        $list = array ();
+        foreach (Event::find() as $event)
+            $list[] = $event->getItemObject();
+        $this->ajaxRespond ('events_list', $list);
     }
 
     /**
