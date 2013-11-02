@@ -19,7 +19,7 @@ android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Question"
+            android:text="Description"
             android:id="@+id/textView" />
 
         <EditText
@@ -66,6 +66,36 @@ android:paddingTop="@dimen/activity_vertical_margin"
             android:id="@+id/multiAutoCompleteTextView" />
 
     </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event"
+            android:id="@+id/radioButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:checked="false"
+            android:paddingRight="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Warning"
+            android:id="@+id/radioButton2"
+            android:layout_gravity="right"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:checked="false" />
+    </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
