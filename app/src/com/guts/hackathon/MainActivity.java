@@ -6,6 +6,7 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -121,4 +122,9 @@ public class MainActivity extends Activity {
 	        // User selected the already selected tab. Usually do nothing.
 	    }
 	}
+
+    public void openEventPost(View view) {
+        Intent intent = new Intent(this, PostEventActivity.class);
+        startActivity(intent);
+    }
 }

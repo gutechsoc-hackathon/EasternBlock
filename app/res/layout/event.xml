@@ -2,9 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <ImageView
+        android:id="@+id/vote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:onClick=""
+        android:scaleType="fitStart"
+        android:src="@drawable/mapicon" />
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/locName"
+        android:layout_toRightOf="@id/vote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Large Text"
