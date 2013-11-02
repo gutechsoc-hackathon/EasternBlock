@@ -14,11 +14,9 @@ public class EventsAdapter extends BaseAdapter {
 	
 	private Activity activity;
 	private static LayoutInflater inflater=null;
-	private ArrayList<Pair<Double, Double>> elements;
-	
+
     public EventsAdapter(Activity a) {
         activity = a;
-        elements = new ArrayList<View>();
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

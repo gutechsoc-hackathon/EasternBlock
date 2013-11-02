@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 @SuppressLint("NewApi")
 public class QuestionsFragment extends Fragment{
@@ -17,4 +18,13 @@ public class QuestionsFragment extends Fragment{
         return inflater.inflate(R.layout.questions_list, container, false);
     }
 
+    @Override 
+    public void onActivityCreated(Bundle savedInstanceState) { 
+        super.onActivityCreated(savedInstanceState); 
+           
+        ListView lView = (ListView) getActivity().findViewById(R.id.questionsList);
+        lView.setAdapter(new QuestionsAdapter(getActivity()));
+       
+    }  
+    
 }
