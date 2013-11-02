@@ -1,6 +1,8 @@
 <resources>
 
     <string name="title_activity_login">Log in</string>
+    <string name="title_activity_postevent">Share</string>
+    <string name="title_activity_questionform">Ask</string>
 
     <!-- Strings related to login -->
     <string name="prompt_name">Name</string>

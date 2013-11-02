@@ -161,4 +161,9 @@ public class MainActivity extends Activity {
 	        // User selected the already selected tab. Usually do nothing.
 	    }
 	}
+
+    public void openPostEvent(View view) {
+        Intent intent = new Intent(this, PostEventActivity.class);
+        startActivity(intent);
+    }
 }
