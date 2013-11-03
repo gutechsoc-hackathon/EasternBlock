@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
-	private	double id;
+	private	int id;
 	private String description;
 	private Date time_created, expires;
 	private double longitude, latitude;
@@ -19,11 +19,11 @@ public class Event {
 		
 	}
 	
-	public double getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
