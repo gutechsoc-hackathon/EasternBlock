@@ -3,8 +3,8 @@ package com.guts.hackathon;
 import java.util.ArrayList;
 
 public class DataAccess {
-	private static ArrayList<Event> events;
-	private static ArrayList<Question> questions;
+	private static ArrayList<Event> events = new ArrayList<Event>();
+	private static ArrayList<Question> questions = new ArrayList<Question>();
 	
 	public static void updateEvents(ArrayList<Event> e) {
 		//events.addAll(e);

@@ -24,7 +24,7 @@ import android.widget.ScrollView;
 public class MainActivity extends Activity {
 
 	private DisplayMetrics metrics;
-	private boolean logedIn = false;
+	private boolean logedIn;
 	private Menu menu;
 	private static Activity mainActivity;
 
@@ -75,6 +75,12 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		this.menu = menu;
 		getMenuInflater().inflate(R.menu.main, menu);
+		
+		if(!ThisUser.getInstance().session.isEmpty()){
+			logedIn = true;
+		} else {
+			logedIn = false;
+		}
 
 		if(logedIn){
 			showOption(R.id.log_out);
@@ -85,6 +91,7 @@ public class MainActivity extends Activity {
 			hideOption(R.id.profile);
 			hideOption(R.id.log_out);
 		}
+		
 		return true;	
 	}
 
@@ -107,23 +114,55 @@ public class MainActivity extends Activity {
             }
 
     } */
+	
+	public boolean onMenuOpened(int id, Menu menu) {
+		if(!ThisUser.getInstance().session.isEmpty()){
+			logedIn = true;
+		} else {
+			logedIn = false;
+		}
+
+		if(logedIn){
+			showOption(R.id.log_out);
+			showOption(R.id.profile);
+			hideOption(R.id.log_in);
+		} else {
+			showOption(R.id.log_in);
+			hideOption(R.id.profile);
+			hideOption(R.id.log_out);
+		}
+		return super.onMenuOpened(id, menu);
+		
+	}
 
 	@Override
 	public boolean onMenuItemSelected(int id, MenuItem item) {
+		
 		switch (item.getItemId()) {
 		case R.id.post_event:
-			Intent postIntent = new Intent(getBaseContext(), PostEventActivity.class);
-			startActivity(postIntent);
+			if(!ThisUser.getInstance().session.isEmpty()){
+				Intent postIntent = new Intent(getBaseContext(), PostEventActivity.class);
+				startActivity(postIntent);
+			} else {
+				Intent i = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(i);
+			}
 			return true;
 		case R.id.ask_question:
-			Intent askIntent = new Intent(getBaseContext(), QuestionFormActivity.class);
-			startActivity(askIntent);
+			if(!ThisUser.getInstance().session.isEmpty()){
+				Intent askIntent = new Intent(getBaseContext(), QuestionFormActivity.class);
+				startActivity(askIntent);
+			} else {
+				Intent i = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(i);
+			}
 			return true;
 		case R.id.log_in:
 			Intent i = new Intent(getBaseContext(), LoginActivity.class);
 			startActivity(i);
 			return true;
 		case R.id.log_out:
+			logout();
 			return true;
 		case R.id.settings:
 			return true;
@@ -196,5 +235,9 @@ public class MainActivity extends Activity {
 	public void showMap(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
 		startActivity(intent);
+	}
+	
+	public void logout(){
+		ThisUser.getInstance().session = "";
 	}
 }
