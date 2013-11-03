@@ -8,23 +8,28 @@ class LocationController extends Controller
     protected $defaultAction = 'item';
     
     /**
-     * get an individual event info
+     * get an individual location info
      */
     public function itemAction ()
     {
-        $this->render ('events/item');
+        $id = Validators::getNum ($_REQUEST['location_id']);
+        $loction = Location::findByPk ($id);
+        $this->ajaxRespond ('location_item', $loction->getItemObject ());
     }
     
     /**
-     * get a list of all events
+     * get a list of all locations
      */
     public function listAction ()
     {
-        $this->render ('events/list');
+        $list = array ();
+        foreach (Location::find() as $loc)
+            $list[] = $loc->getItemObject();
+        $this->ajaxRespond ('locations_list', $list);
     }
 
     /**
-     * register a new event
+     * register a new location
      */
     public function registerAction ()
     {
