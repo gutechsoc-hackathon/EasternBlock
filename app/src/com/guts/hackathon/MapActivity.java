@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapActivity extends Activity {
 	
 	private GoogleMap map;
-	private HashMap<String, MarkerOptions> markers = new HashMap<String, MarkerOptions>();
+	private HashMap<String, LocationItem> markers = new HashMap<String, LocationItem>();
 	private boolean myLocationCentered = false;
 	private long lastPostLocationTime = System.currentTimeMillis();
 	private PostToServerTask task;
@@ -45,7 +45,18 @@ public class MapActivity extends Activity {
 
 			@Override
 			public void onInfoWindowClick(Marker arg0) {
-				// TODO Auto-generated method stub
+				String id = arg0.getId();
+				LocationItem item = markers.get(id);
+				System.out.println(id);
+				System.out.println(item);
+				
+				if (item.obj instanceof Event) {
+					Event e = (Event)item.obj;
+					System.out.println(e.getDescription());
+				} else if (item.obj instanceof Question) {
+					Question q = (Question)item.obj;
+					System.out.println(q.getQuestion());
+				}
 				
 			}
 	    });
@@ -56,11 +67,11 @@ public class MapActivity extends Activity {
 	    
 		
 		for (Event x: DataAccess.getEvents()) {
-			setMarker(Double.toString(x.getId()), createOptions(x.getUser_name(), x.getLocation().getLatitude(), x.getLocation().getLongitude(), x.getDescription(), 1));
+			setMarker(x);
 		}
 
 		for (Question x: DataAccess.getQuestions()) {
-			setMarker(Double.toString(x.getId()), createOptions(x.getUser_name(), x.getLatitude(), x.getLongitude(), x.getQuestion(), 2));	
+			setMarker(x);	
 		}
 		
   	    
@@ -97,47 +108,43 @@ public class MapActivity extends Activity {
 		return true;
 	}
 	
-	private void setMarker(String id, MarkerOptions options) {
-		markers.put(id, options);
-		updateMap();
-	}
-	
-	private void removeMarker(String id) {
-		markers.remove(id);
-		updateMap();
-	}
-	
-	private MarkerOptions getMarker(String id) {
-		return markers.get(id);
-	}
-	
-	private void updateMap() {
-		map.clear();
-		for (String id: markers.keySet()) {
-			MarkerOptions options = markers.get(id);
-			Marker m = map.addMarker(options);
-		}
-		// other info
-	}
-	
-	private MarkerOptions createOptions(String title, double lat, double lon, String snippetText, int color) {
+	private void setMarker(Object obj) {
 		MarkerOptions options = new MarkerOptions();
 		
-		options.position(new LatLng(lat, lon));
-		options.title(title);
-		options.snippet(snippetText);
-		if (color == 2) {
+		if (obj instanceof Event) {
+			Event e = (Event)obj;
+					
+			options.title(e.getUser_name());
+			options.position(new LatLng(e.getLocation().getLatitude(), e.getLocation().getLongitude()));
+			options.snippet(e.getDescription());
 			options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+								
+		} else if (obj instanceof Question) {
+			Question q = (Question)obj;
+			
+			options.title(q.getUser_name());
+			options.position(new LatLng(q.getLocation().getLatitude(), q.getLocation().getLongitude()));
+			options.snippet(q.getQuestion());
 		}
-		return options;
+		
+		
+	
+
+		Marker m = map.addMarker(options);
+		System.out.println("   " + m.getId());
+		markers.put(m.getId(), new LocationItem(obj, options));
+		
 	}
+	
+
+	
 	
 	private float getCurrentZoomLevel() {
 		return map.getCameraPosition().zoom;
 	}
 	
 	private void moveToMarker(String id) {
-		MarkerOptions options = markers.get(id);
+		MarkerOptions options = markers.get(id).options;
 		map.animateCamera(CameraUpdateFactory.newLatLng(options.getPosition()));
 	}
 
@@ -147,5 +154,15 @@ public class MapActivity extends Activity {
 		public void processResponse(String response) {
 			
 		}		
+	}
+	
+	private class LocationItem {
+		public Object obj;
+		public MarkerOptions options;
+		
+		public LocationItem(Object obj, MarkerOptions options) {
+			this.obj = obj;
+			this.options = options;
+		}
 	}
 }
