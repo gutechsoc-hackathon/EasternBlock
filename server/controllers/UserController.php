@@ -85,5 +85,16 @@ class UserController extends Controller
         System::doMysql ("DELETE FROM ".Session::getTableName()." WHERE user_id = ".(System::$user->getPk()).";");
         $this->ajaxSuccess();
     }
+
+    /**
+     * show who are onine
+     */
+    public function onlineAction ()
+    {
+        $list = array ();
+        foreach (User::getOnline () as $u)
+            $list[] = $u->getItemObject ();
+        $this->ajaxRespond ('online_users', $list);
+    }
 }
 ?>
