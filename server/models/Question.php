@@ -20,7 +20,7 @@ class Question extends ActiveRecord
             'question' => $this->question,
             'time_created' => $this->time_created,
             'expires' => $this->expires,
-            'longtitude' => $this->longtitude,
+            'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'tags' => Tag::getList ($this->tags),
             'user_id' => $this->author->id,

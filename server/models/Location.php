@@ -12,7 +12,7 @@ class Location extends ActiveRecord
         return array (
             'id' => $this->id,
             'name' => $this->name,
-            'longtitude' => $this->longtitude,
+            'longitude' => $this->longitude,
             'latitude' => $this->latitude,
         );
     }

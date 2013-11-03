@@ -69,7 +69,7 @@ class EventsController extends Controller
     public function registerAction ()
     {
         $description = Validators::getMysqlSafe ($_REQUEST['description']);
-        $longtitude = Validators::getFloat ($_REQUEST['longtitude']);
+        $longitude = Validators::getFloat ($_REQUEST['longitude']);
         $latitude = Validators::getFloat ($_REQUEST['latitude']);
         $type_id = Validators::getNum ($_REQUEST['type_id']);
         $tags = array ();
@@ -78,7 +78,7 @@ class EventsController extends Controller
         $location_id = Validators::getNum ($_REQUEST['location_id']);
         $question_id = Validators::getNum ($_REQUEST['question_id']);
 
-        if (!$longtitude || !$latitude || !$type_id || !$location_id)
+        if (!$longitude || !$latitude || !$type_id || !$location_id)
             throw new GameError ('Required fields are missing');
 
         // this would crash if an id is wrong
@@ -90,7 +90,7 @@ class EventsController extends Controller
         // store an event
         $evt = new Event ();
         $evt->description = $description;
-        $evt->longtitude = $longtitude;
+        $evt->longitude = $longitude;
         $evt->latitude = $latitude;
         $evt->type_id = $type_id;
         if ($question_id)
