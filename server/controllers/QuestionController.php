@@ -8,7 +8,7 @@ class QuestionController extends Controller
     protected $defaultAction = 'item';
     
     /**
-     * get an individual event info
+     * get an individual question info
      */
     public function itemAction ()
     {
@@ -18,7 +18,7 @@ class QuestionController extends Controller
     }
     
     /**
-     * get a list of all events
+     * get a list of all questions
      */
     public function listAction ()
     {
@@ -29,7 +29,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * register a new event
+     * register a new question
      */
     public function registerAction ()
     {

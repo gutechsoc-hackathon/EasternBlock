@@ -17,7 +17,7 @@ class Question extends ActiveRecord
     {
         return array (
             'id' => $this->id,
-            'question' => $this->description,
+            'question' => $this->question,
             'time_created' => $this->time_created,
             'expires' => $this->expires,
             'longtitude' => $this->longtitude,

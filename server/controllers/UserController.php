@@ -85,31 +85,16 @@ class UserController extends Controller
         System::doMysql ("DELETE FROM ".Session::getTableName()." WHERE user_id = ".(System::$user->getPk()).";");
         $this->ajaxSuccess();
     }
-    
+
     /**
-     * editting tags
+     * show who are onine
      */
-    public function edit_tagsAction ()
+    public function onlineAction ()
     {
-        // creating the form
-        $form = new TextAreaForm ();
-        
-        // setting right label and placeholder
-        $form->setLabel ('info', 'Tags: ');
-        $form->setFieldParameter ('info', 'placeholder', 'Enter tags related to you, comma-sepparated. Example: C++, NLP, Usability');
-        
-        // default values
-        $source = (System::$user->employer) ? System::$user->employer : System::$user->freelancer;
-        $form->info = $source->short_descr;
-        
-        // retrieving
-        if (!$form->retrieveData () || !$form->validate ())
-            $this->render ('user/edit', array ('form' => $form));
-        else 
-        {
-            $source->short_descr = System::mysqlRealEscapeString ($form->info);
-            $this->dashboardAction ();
-        }
+        $list = array ();
+        foreach (User::getOnline () as $u)
+            $list[] = $u->getItemObject ();
+        $this->ajaxRespond ('online_users', $list);
     }
 }
 ?>
