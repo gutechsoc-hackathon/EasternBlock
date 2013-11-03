@@ -14,9 +14,11 @@ import android.view.Menu;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 @SuppressLint("NewApi")
@@ -38,6 +40,15 @@ public class MapActivity extends Activity {
 
 	    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 	            .getMap();
+	    
+	    map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+			@Override
+			public void onInfoWindowClick(Marker arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+	    });
 
 		for (Event x: DataAccess.getEvents()) {
 				System.out.println(x.getLocation().getLatitude() + " " +x.getLocation().getLongitude());
@@ -104,7 +115,7 @@ public class MapActivity extends Activity {
 		map.clear();
 		for (String id: markers.keySet()) {
 			MarkerOptions options = markers.get(id);
-			map.addMarker(options);			
+			Marker m = map.addMarker(options);
 		}
 		// other info
 	}
