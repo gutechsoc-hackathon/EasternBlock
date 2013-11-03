@@ -95,6 +95,12 @@
                 android:singleLine="true" 
                 android:visibility="gone" />
 
+            <CheckBox
+                android:id="@+id/storeSessionCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log me in automatically" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
