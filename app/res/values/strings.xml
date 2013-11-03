@@ -13,12 +13,18 @@
     <string name="profile">Profile</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_map">Map</string>
-    
 
     <string-array name="expiration_array">
         <item>Today</item>
         <item>This week</item>
         <item>This month</item>
     </string-array>
+
+    <string name="title_activity_event_view">Location name</string>
+    <string name="description_activity_event_view">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="expires_activity_event_view">Expires: soon</string>
+    <string name="tags_activity_event_view">Tags: tags, tags, tags</string>
+    <string name="by_activity_event_view">By: User 123</string>
+    <string name="plus_event_view">+</string>
 
 </resources>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +38,11 @@ public class EventsAdapter extends BaseAdapter implements ResponseCallback{
 		go.setDone(this);
 		go.execute("r","events/list");
 	}
-	
+
 	@Override
 	public void processResponse(String response) {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		
+
 		Type listType = new TypeToken<ArrayList<Event>>() {}.getType();
 		//TODO: check response before attempting deserialization
 		response = response.substring(response.indexOf("["),response.lastIndexOf("]")+1);
@@ -86,6 +87,15 @@ public class EventsAdapter extends BaseAdapter implements ResponseCallback{
 			public void onClick(View v) {
 				// TODO open event details activity
 
+			}
+		});
+		final int this_id = events.get(position).getId();
+		elem.findViewById(R.id.event_layout).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent myIntent = new Intent(activity, EventView.class);
+				myIntent.putExtra("EVENT_ID", this_id);
+				activity.startActivity(myIntent);
 			}
 		});
 		return elem;
