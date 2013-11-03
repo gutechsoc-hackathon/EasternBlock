@@ -4,7 +4,6 @@ package com.guts.hackathon;
 
 public class ThisUser {
 	private static ThisUser user;
-	public static int id = 0;
 	public static String name = "", session = "";
 	
 	private ThisUser() {

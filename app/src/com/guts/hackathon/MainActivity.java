@@ -8,7 +8,9 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -56,7 +58,12 @@ public class MainActivity extends Activity {
 
 		aBar.addTab(eventsTab);
 		aBar.addTab(questionsTab);
-
+		
+		SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
+		if (pref.contains("SESSION")) {
+			ThisUser.session = pref.getString("SESSION", "");
+			ThisUser.name = pref.getString("NAME", "");
+		}
 
 		//Set actionbar button positioning
 
@@ -124,6 +131,10 @@ public class MainActivity extends Activity {
 			startActivity(i);
 			return true;
 		case R.id.log_out:
+			ThisUser.name = "";
+			ThisUser.session = "";
+			SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
+			pref.edit().clear().commit();
 			return true;
 		case R.id.settings:
 			return true;
