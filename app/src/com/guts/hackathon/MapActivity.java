@@ -1,5 +1,6 @@
 package com.guts.hackathon;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
@@ -26,17 +27,26 @@ public class MapActivity extends Activity {
 	private long lastPostLocationTime = System.currentTimeMillis();
 	private PostToServerTask task;
 	private Location lastLocation;
+	private ArrayList<Event> events;
+	private ArrayList<Question> questions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		
+
 	    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 	            .getMap();
-	    
-//	    setMarker("1", createOptions("Glasgow", 55.8580, -4.2590, "text1"));
-//	    setMarker("2", createOptions("Glasgow", 0, 0, "text2"));
+		
+		
+		for (Event x: DataAccess.getEvents()) {
+			setMarker(Double.toString(x.getId()), createOptions(x.getUser_name(), x.getLocation().getLatitude(), x.getLocation().getLongitude(), x.getDescription()));
+		}
+
+		for (Question x: DataAccess.getQuestions()) {
+			setMarker(Double.toString(x.getId()), createOptions(x.getUser_name(), x.getLatitude(), x.getLongitude(), x.getQuestion()));	
+		}
+		
   	    
   	    map.setMyLocationEnabled(true);
   	    
