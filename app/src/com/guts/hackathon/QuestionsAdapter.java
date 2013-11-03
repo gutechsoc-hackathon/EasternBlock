@@ -23,13 +23,13 @@ public class QuestionsAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 4;
+		return questions.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return questions.get(position);
 	}
 
 	@Override

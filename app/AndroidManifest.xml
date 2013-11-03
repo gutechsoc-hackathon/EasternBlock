@@ -8,8 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -25,8 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.guts.hackathon.QuestionFormActivity" />
-		<activity android:name="com.guts.hackathon.PostEventActivity" />
+        <activity android:name="com.guts.hackathon.QuestionFormActivity"
+            android:label="@string/title_activity_questionform"/>
+		<activity android:name="com.guts.hackathon.PostEventActivity"
+            android:label="@string/title_activity_postevent"/>
 		<activity
             android:name="com.guts.hackathon.LoginActivity"
             android:label="@string/title_activity_login"

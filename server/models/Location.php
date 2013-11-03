@@ -6,5 +6,15 @@ class Location extends ActiveRecord
         'events' => array (HAS_MANY, 'Event', 'location_id'),
         'questions' => array (HAS_MANY, 'Question', 'location_id'),
     );
+
+    public function getItemObject()
+    {
+        return array (
+            'id' => $this->id,
+            'name' => $this->name,
+            'longtitude' => $this->longtitude,
+            'latitude' => $this->latitude,
+        );
+    }
 }
 ?>
