@@ -62,6 +62,12 @@
         {
             $response = array ('type' => $type, 'data' => $data);
             $json = json_encode ($response);
+
+            // if the json reponse is being shown despite not being
+            // in the ajax mode, then display it preformatted.
+            if (!defined ('AJAX'))
+                $json = '<pre>'.(print_r ($response, true)).'</pre>';
+
             $this->render ('ajax/respond', array ('json' => $json) );
         }
         
