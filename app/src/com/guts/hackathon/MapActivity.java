@@ -1,5 +1,6 @@
 package com.guts.hackathon;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
@@ -13,8 +14,11 @@ import android.view.Menu;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 @SuppressLint("NewApi")
@@ -26,17 +30,39 @@ public class MapActivity extends Activity {
 	private long lastPostLocationTime = System.currentTimeMillis();
 	private PostToServerTask task;
 	private Location lastLocation;
+	private ArrayList<Event> events;
+	private ArrayList<Question> questions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		
+
 	    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 	            .getMap();
 	    
-//	    setMarker("1", createOptions("Glasgow", 55.8580, -4.2590, "text1"));
-//	    setMarker("2", createOptions("Glasgow", 0, 0, "text2"));
+	    map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+			@Override
+			public void onInfoWindowClick(Marker arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+	    });
+
+		for (Event x: DataAccess.getEvents()) {
+				System.out.println(x.getLocation().getLatitude() + " " +x.getLocation().getLongitude());
+		}	    
+	    
+		
+		for (Event x: DataAccess.getEvents()) {
+			setMarker(Double.toString(x.getId()), createOptions(x.getUser_name(), x.getLocation().getLatitude(), x.getLocation().getLongitude(), x.getDescription(), 1));
+		}
+
+		for (Question x: DataAccess.getQuestions()) {
+			setMarker(Double.toString(x.getId()), createOptions(x.getUser_name(), x.getLatitude(), x.getLongitude(), x.getQuestion(), 2));	
+		}
+		
   	    
   	    map.setMyLocationEnabled(true);
   	    
@@ -89,18 +115,20 @@ public class MapActivity extends Activity {
 		map.clear();
 		for (String id: markers.keySet()) {
 			MarkerOptions options = markers.get(id);
-			map.addMarker(options);			
+			Marker m = map.addMarker(options);
 		}
 		// other info
 	}
 	
-	private MarkerOptions createOptions(String title, double lat, double lon, String snippetText) {
+	private MarkerOptions createOptions(String title, double lat, double lon, String snippetText, int color) {
 		MarkerOptions options = new MarkerOptions();
 		
 		options.position(new LatLng(lat, lon));
 		options.title(title);
 		options.snippet(snippetText);
-		
+		if (color == 2) {
+			options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+		}
 		return options;
 	}
 	

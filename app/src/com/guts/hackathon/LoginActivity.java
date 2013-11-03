@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -18,11 +17,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -40,6 +42,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
+@SuppressLint("NewApi")
 public class LoginActivity extends Activity {
 
 
@@ -152,6 +155,13 @@ public class LoginActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 
+		
+		if(!ThisUser.getInstance().session.isEmpty()){
+			logedIn = true;
+		} else {
+			logedIn = false;
+		}
+		
 		if(logedIn){
 			showOption(R.id.settings);
 			hideOption(R.id.action_forgot_password);
@@ -394,6 +404,11 @@ public class LoginActivity extends Activity {
 				if(type.equals("auth_response")){
 					ThisUser.session = data.getString("sess_id");
 					ThisUser.name = data.getString("name");
+					CheckBox rememberBox = (CheckBox) findViewById(R.id.storeSessionCheckbox);
+					if (rememberBox.isChecked()) {
+						SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
+						pref.edit().putString("SESSION", ThisUser.session).putString("NAME", ThisUser.name).apply();
+					}
 					return true;
 				} else if(type.equals("error")){
 					String error = data.getString("msg");
@@ -410,24 +425,6 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 
-
-			//			try {
-			//				// Simulate network access.
-			//				Thread.sleep(2000);
-			//			} catch (InterruptedException e) {
-			//				return false;
-			//			}
-			//
-			//			for (String credential : DUMMY_CREDENTIALS) {
-			//				String[] pieces = credential.split(":");
-			//				if (pieces[0].equals(mEmail)) {
-			//					// Account exists, return true if the password matches.
-			//					return pieces[1].equals(mPassword);
-			//				}
-			//			}
-
-			// TODO: register the new account here.
-			//return true;
 		}
 
 		@Override

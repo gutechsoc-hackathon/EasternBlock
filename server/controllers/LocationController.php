@@ -53,17 +53,17 @@ class LocationController extends Controller
     public function registerAction ()
     {
         $name = Validators::getMysqlSafe ($_REQUEST['name']);
-        $longtitude = Validators::getFloat ($_REQUEST['longtitude']);
+        $longitude = Validators::getFloat ($_REQUEST['longitude']);
         $latitude = Validators::getFloat ($_REQUEST['latitude']);
 
-        if (!$longtitude || !$latitude || !$name)
+        if (!$longitude || !$latitude || !$name)
             throw new GameError ('Required fields are missing');
 
         // store a location
         $loc = new Location ();
         $loc->name = $name;
         $loc->seo = Validators::getSeo ($name);
-        $loc->longtitude = $longtitude;
+        $loc->longitude = $longitude;
         $loc->latitude = $latitude;
         $loc->save();
 

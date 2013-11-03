@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,6 +47,10 @@ public class EventsAdapter extends BaseAdapter implements ResponseCallback{
 		events = gson.fromJson(response, listType);
 		notifyDataSetChanged();
 		DataAccess.updateEvents(events);
+		DataAccess.getEvents().get(0);
+		String tString = DataAccess.getEvents().get(1).getDescription();
+		String fString = DataAccess.getEvents().get(0).getUser_name();
+
 	}
 
 	@Override

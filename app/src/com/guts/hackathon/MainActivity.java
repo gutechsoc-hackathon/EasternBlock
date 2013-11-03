@@ -1,38 +1,29 @@
 package com.guts.hackathon;
 
-import android.R.integer;
-import android.R.menu;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 
-	private DisplayMetrics metrics;
-	private boolean logedIn = false;
 	private Menu menu;
-	private static Activity mainActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mainActivity = this;
-		metrics = this.getResources().getDisplayMetrics();
+		ThisUser.getInstance();
 		ActionBar aBar = getActionBar();
 		aBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		aBar.setDisplayShowTitleEnabled(false);
@@ -57,6 +48,11 @@ public class MainActivity extends Activity {
 		aBar.addTab(eventsTab);
 		aBar.addTab(questionsTab);
 
+		SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
+		if (pref.contains("SESSION")) {
+			ThisUser.session = pref.getString("SESSION", "");
+			ThisUser.name = pref.getString("NAME", "");
+		}
 
 		//Set actionbar button positioning
 
@@ -76,7 +72,7 @@ public class MainActivity extends Activity {
 		this.menu = menu;
 		getMenuInflater().inflate(R.menu.main, menu);
 
-		if(logedIn){
+		if(!ThisUser.session.isEmpty()){
 			showOption(R.id.log_out);
 			showOption(R.id.profile);
 			hideOption(R.id.log_in);
@@ -85,6 +81,7 @@ public class MainActivity extends Activity {
 			hideOption(R.id.profile);
 			hideOption(R.id.log_out);
 		}
+
 		return true;	
 	}
 
@@ -108,22 +105,49 @@ public class MainActivity extends Activity {
 
     } */
 
+	public boolean onMenuOpened(int id, Menu menu) {
+
+		if(!ThisUser.session.isEmpty()){
+			showOption(R.id.log_out);
+			showOption(R.id.profile);
+			hideOption(R.id.log_in);
+		} else {
+			showOption(R.id.log_in);
+			hideOption(R.id.profile);
+			hideOption(R.id.log_out);
+		}
+		return super.onMenuOpened(id, menu);
+
+	}
+
 	@Override
 	public boolean onMenuItemSelected(int id, MenuItem item) {
+
 		switch (item.getItemId()) {
 		case R.id.post_event:
-			Intent postIntent = new Intent(getBaseContext(), PostEventActivity.class);
-			startActivity(postIntent);
+			if(!ThisUser.session.isEmpty()){
+				Intent postIntent = new Intent(getBaseContext(), PostEventActivity.class);
+				startActivity(postIntent);
+			} else {
+				Intent i = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(i);
+			}
 			return true;
 		case R.id.ask_question:
-			Intent askIntent = new Intent(getBaseContext(), QuestionFormActivity.class);
-			startActivity(askIntent);
+			if(!ThisUser.session.isEmpty()){
+				Intent askIntent = new Intent(getBaseContext(), QuestionFormActivity.class);
+				startActivity(askIntent);
+			} else {
+				Intent i = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(i);
+			}
 			return true;
 		case R.id.log_in:
 			Intent i = new Intent(getBaseContext(), LoginActivity.class);
 			startActivity(i);
 			return true;
 		case R.id.log_out:
+			logout();
 			return true;
 		case R.id.settings:
 			return true;
@@ -196,5 +220,12 @@ public class MainActivity extends Activity {
 	public void showMap(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
 		startActivity(intent);
+	}
+
+	public void logout() {
+		ThisUser.name = "";
+		ThisUser.session = "";
+		SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
+		pref.edit().clear().apply();
 	}
 }

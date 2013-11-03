@@ -99,7 +99,7 @@
         {
             return "
             6371 *2 * ATAN2( SQRT( (
-            POW( SIN( RADIANS( ".$lat." - latitude ) /2 ) , 2 ) + COS( RADIANS( ".$lat." ) ) * COS( RADIANS( latitude ) ) * POW( SIN( RADIANS( ".$long." - longtitude ) /2 ) , 2 ) ) ) , SQRT( 1 - ( POW( SIN( RADIANS( ".$lat." - latitude ) /2 ) , 2 ) + COS( RADIANS( ".$lat." ) ) * COS( RADIANS( latitude ) ) * POW( SIN( RADIANS( ".$long." - longtitude ) /2 ) , 2 ) ) )
+            POW( SIN( RADIANS( ".$lat." - latitude ) /2 ) , 2 ) + COS( RADIANS( ".$lat." ) ) * COS( RADIANS( latitude ) ) * POW( SIN( RADIANS( ".$long." - longitude ) /2 ) , 2 ) ) ) , SQRT( 1 - ( POW( SIN( RADIANS( ".$lat." - latitude ) /2 ) , 2 ) + COS( RADIANS( ".$lat." ) ) * COS( RADIANS( latitude ) ) * POW( SIN( RADIANS( ".$long." - longitude ) /2 ) , 2 ) ) )
             ) < ".$dist;
         }
     }
