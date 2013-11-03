@@ -59,7 +59,7 @@ class QuestionController extends Controller
 
         foreach (Question::find ($q) as $q)
             $list[] = $q->getItemObject();
-        $this->ajaxRespond ('smart_locations_list', $list);
+        $this->ajaxRespond ('smart_questions_list', $list);
     }
 
     /**

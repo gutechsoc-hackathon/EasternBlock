@@ -60,7 +60,7 @@ class EventsController extends Controller
 
         foreach (Event::find ($q) as $e)
             $list[] = $e->getItemObject();
-        $this->ajaxRespond ('smart_locations_list', $list);
+        $this->ajaxRespond ('smart_events_list', $list);
     }
 
     /**

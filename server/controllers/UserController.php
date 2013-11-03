@@ -110,7 +110,7 @@ class UserController extends Controller
         $q .= " AND id IN (SELECT user_id FROM ".Session::getTableName()." WHERE last_activity > NOW() - INTERVAL 5 MINUTE);";
         foreach (User::find ($q) as $u)
             $list[] = $u->getItemObject();
-        $this->ajaxRespond ('smart_locations_list', $list);
+        $this->ajaxRespond ('smart_online_list', $list);
     }
 
     /**
