@@ -12,7 +12,9 @@ class EventsController extends Controller
      */
     public function itemAction ()
     {
-        $this->render ('events/item');
+        $id = Validators::getNum ($_REQUEST['event_id']);
+        $event = Event::findByPk ($id);
+        $this->ajaxRespond ('event_item', $event->getItemObject ());
     }
     
     /**
@@ -20,7 +22,10 @@ class EventsController extends Controller
      */
     public function listAction ()
     {
-        $this->render ('events/list');
+        $list = array ();
+        foreach (Event::find() as $event)
+            $list[] = $event->getItemObject();
+        $this->ajaxRespond ('events_list', $list);
     }
 
     /**
