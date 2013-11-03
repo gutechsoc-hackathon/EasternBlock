@@ -1,6 +1,5 @@
 package com.guts.hackathon;
 
-import android.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;

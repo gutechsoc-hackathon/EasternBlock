@@ -2,7 +2,7 @@ package com.guts.hackathon;
 
 import java.util.HashMap;
 
-import android.R;
+import com.guts.hackathon.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;

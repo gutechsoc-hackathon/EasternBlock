@@ -1,8 +1,6 @@
 package com.guts.hackathon;
 
-import java.util.ArrayList;
-
-import android.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +15,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import java.util.ArrayList;
 
 public class PostEventActivity extends Activity {
 
@@ -26,8 +25,7 @@ public class PostEventActivity extends Activity {
     protected RadioButton mRadioEvent, mRadioWarning;
     protected MultiAutoCompleteTextView mTagTextView;
 
-    @Override
-	protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_event_form);
 
@@ -43,7 +41,8 @@ public class PostEventActivity extends Activity {
         startActivityForResult(takePictureIntent, CAPTURE_IMAGE);
     }
 
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CAPTURE_IMAGE) {
@@ -81,8 +80,7 @@ public class PostEventActivity extends Activity {
     private void setupSubmit() {
         Button button = (Button) findViewById(R.id.submitButton);
         button.setOnClickListener(new View.OnClickListener() {
-            @Override
-			public void onClick(View v) {
+            public void onClick(View v) {
 
                 mRadioWarning.setError(null);
 
