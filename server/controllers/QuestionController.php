@@ -59,7 +59,7 @@ class QuestionController extends Controller
 
         foreach (Question::find ($q) as $q)
             $list[] = $q->getItemObject();
-        $this->ajaxRespond ('smart_locations_list', $list);
+        $this->ajaxRespond ('smart_questions_list', $list);
     }
 
     /**
@@ -72,7 +72,7 @@ class QuestionController extends Controller
         $latitude = Validators::getFloat ($_REQUEST['latitude']);
         $tags = array ();
         if ($_REQUEST['tags'])
-            $tags = json_decode ($_REQUEST['tags'], true);
+            $tags = explode (',', Validators::getMysqlSafe ($_REQUEST['tags']));
         $location_id = Validators::getNum ($_REQUEST['location_id']);
 
         if (!$longitude || !$latitude || !$location_id)

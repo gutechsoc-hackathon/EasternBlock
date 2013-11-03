@@ -3,5 +3,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <size
         android:height="20dp"
+        android:background="#00000000"
         android:width="0dp"/>
 </shape>

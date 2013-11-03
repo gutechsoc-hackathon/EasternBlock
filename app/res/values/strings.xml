@@ -16,6 +16,7 @@
     
 
     <string-array name="expiration_array">
+        <item>Now</item>
         <item>Today</item>
         <item>This week</item>
         <item>This month</item>
