@@ -154,12 +154,12 @@ public class LoginActivity extends Activity {
 		
 		if(logedIn){
 			showOption(R.id.settings);
-			showOption(R.id.action_forgot_password);
-			hideOption(R.id.profile);
-		} else {
-			hideOption(R.id.settings);
 			hideOption(R.id.action_forgot_password);
 			showOption(R.id.profile);
+		} else {
+			showOption(R.id.settings);
+			showOption(R.id.action_forgot_password);
+			hideOption(R.id.profile);
 		}
 		return true;
 	}
