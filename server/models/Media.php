@@ -11,6 +11,8 @@ class Media extends ActiveRecord
     public static function getList ($arr)
     {
         $list = array();
+        if (!$arr)
+            return $list;
         foreach ($arr as $media)
         {
             $list[] = array (
