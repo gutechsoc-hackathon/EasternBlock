@@ -24,7 +24,15 @@ class EventsController extends Controller
     public function listAction ()
     {
         $list = array ();
-        foreach (Event::find() as $event)
+        $where = '1=1 ORDER BY time_created DESC';
+        
+        if (isset ($_REQUEST['from']))
+        {
+            $from = Validators::getDateFormat ($_REQUEST['from']);
+            $where = "time_created > '".$from."' ORDER BY time_created DESC";
+        }
+
+        foreach (Event::find($where) as $event)
             $list[] = $event->getItemObject();
         $this->ajaxRespond ('events_list', $list);
     }
@@ -43,6 +51,13 @@ class EventsController extends Controller
 
         $list = array ();
         $q = Query::getDistQuery ($dist, $lat, $long);
+
+        if (isset ($_REQUEST['from']))
+        {
+            $from = Validators::getDateFormat ($_REQUEST['from']);
+            $q .= " AND time_created > '".$from."' ORDER BY time_created DESC";
+        }
+
         foreach (Event::find ($q) as $e)
             $list[] = $e->getItemObject();
         $this->ajaxRespond ('smart_locations_list', $list);
