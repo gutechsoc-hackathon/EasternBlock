@@ -22,7 +22,7 @@ class Event extends ActiveRecord
             'description' => $this->description,
             'time_created' => $this->time_created,
             'expires' => $this->expires,
-            'longtitude' => $this->longtitude,
+            'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'type' => $this->type_id,
             'tags' => Tag::getList ($this->tags),

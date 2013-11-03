@@ -125,7 +125,7 @@ class UserController extends Controller
             throw new GameError ('Required fields are missing');
 
         System::$user->latitude = $lat;
-        System::$user->longtitude = $long;
+        System::$user->longitude = $long;
         System::$user->save ();
 
         $this->ajaxSuccess ();
