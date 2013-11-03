@@ -5,7 +5,6 @@ class MediaController extends Controller
         'default' => array ('guest'),
         'upload' => array ('user'),
     );
-    protected $defaultAction = 'item';
     
     /**
      * get an individual media info

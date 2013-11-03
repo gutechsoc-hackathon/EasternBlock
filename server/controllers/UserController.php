@@ -5,22 +5,17 @@ class UserController extends Controller
         'default' => array ('guest'),
         'track' => array ('user'),
     );
-    protected $defaultAction = 'dashboard';
+    protected $defaultAction = 'login';
     
     /**
-     * index page is basically a html page.
+     * check session, if it is still valid
      */
-    public function indexAction ()
+    public function chsessAction ()
     {
-        $this->render ('user/index');
-    }
-    
-    /**
-     * dashboard
-     */
-    public function dashboardAction ()
-    {
-        $this->render ('user/dashboard');
+        if (System::$user->checkAccess ('user'))
+            $this->ajaxSuccess ();
+        else
+            throw new GameError ('Your session has expired');
     }
     
     /**

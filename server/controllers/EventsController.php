@@ -6,7 +6,7 @@ class EventsController extends Controller
         'register' => array ('user'),
         'upvote' => array ('user'),
     );
-    protected $defaultAction = 'item';
+    protected $defaultAction = 'list';
     
     /**
      * get an individual event info

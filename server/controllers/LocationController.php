@@ -5,7 +5,7 @@ class LocationController extends Controller
         'default' => array ('guest'),
         'register' => array ('user'),
     );
-    protected $defaultAction = 'item';
+    protected $defaultAction = 'list';
     
     /**
      * get an individual location info

@@ -4,7 +4,7 @@ class TagController extends Controller
     protected static $access = array (
         'default' => array ('guest'),
     );
-    protected $defaultAction = 'item';
+    protected $defaultAction = 'list';
     
     /**
      * get a list of all events
