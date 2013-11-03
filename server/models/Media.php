@@ -7,5 +7,21 @@ class Media extends ActiveRecord
         'event' => array (BELONGS_TO, 'Event', 'event_id'),
         'author' => array (BELONGS_TO, 'User', 'user_id'),
     );
+
+    public static function getList ($arr)
+    {
+        $list = array();
+        foreach ($arr as $media)
+        {
+            $list[] = array (
+                'id' => $media->id,
+                'user_name' => $media->author->name,
+                'user_id' => $media->author->id,
+                'url' => $media->address,
+                'type_id' => $media->media_type_id,
+            );
+        }
+        return $list;
+    }
 }
 ?>
