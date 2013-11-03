@@ -1,8 +1,6 @@
 <resources>
 
     <string name="title_activity_login">Log in</string>
-    <string name="title_activity_postevent">Share</string>
-    <string name="title_activity_questionform">Ask</string>
 
     <!-- Strings related to login -->
     <string name="prompt_name">Name</string>
@@ -16,9 +14,11 @@
     <string name="login_progress_signing_in">Signing in&#8230;</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_incorrect_password">This password/email is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="error_title">Error</string>
+    <string name="error_email_match">Emails don\'t match</string>
+    <string name="error_pswd_match">Passwords don\'t match</string>
+    <string name="error_invalid_name">Your display name should be at least 3 characters long</string>
     <string name="register">Register</string>
 
 </resources>
