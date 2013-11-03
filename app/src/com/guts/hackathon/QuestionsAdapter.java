@@ -9,7 +9,6 @@ import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,7 @@ public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
         if(convertView==null) {
         	elem = inflater.inflate(R.layout.question, null);
         }
-        TextView qDesc = (TextView) elem.findViewById(R.id.questionsList);
+        TextView qDesc = (TextView) elem.findViewById(R.id.questionDescription);
         qDesc.setText(questions.get(position).getQuestion());
         return elem;
 	}

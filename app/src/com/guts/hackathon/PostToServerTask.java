@@ -17,7 +17,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.R.integer;
 import android.os.AsyncTask;
 import android.util.Log;
 

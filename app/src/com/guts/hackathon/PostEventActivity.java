@@ -1,5 +1,6 @@
 package com.guts.hackathon;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +15,6 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 
 public class PostEventActivity extends Activity {
@@ -41,7 +41,8 @@ public class PostEventActivity extends Activity {
         startActivityForResult(takePictureIntent, CAPTURE_IMAGE);
     }
 
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CAPTURE_IMAGE) {
