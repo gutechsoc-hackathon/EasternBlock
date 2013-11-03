@@ -385,14 +385,15 @@ public class LoginActivity extends Activity {
 				e.printStackTrace();
 				return false;
 			}
-		    String name, session, type; 
+		    ThisUser you = ThisUser.getInstance();
+		    String type; 
 		    try {
 		    	System.out.println("fetch data");
 		    	type = jObject.getString("type");
 		    	data = jObject.getJSONObject("data");
 		    	if(type.equals("auth_response")){
-					session = data.getString("sess_id");
-					name = data.getString("name");
+					you.session = data.getString("sess_id");
+					you.name = data.getString("name");
 		    		return true;
 		    	} else if(type.equals("error")){
 					String error = data.getString("msg");

@@ -4,8 +4,9 @@ class EventsController extends Controller
     protected static $access = array (
         'default' => array ('guest'),
         'register' => array ('user'),
+        'upvote' => array ('user'),
     );
-    protected $defaultAction = 'item';
+    protected $defaultAction = 'list';
     
     /**
      * get an individual event info
@@ -26,6 +27,25 @@ class EventsController extends Controller
         foreach (Event::find() as $event)
             $list[] = $event->getItemObject();
         $this->ajaxRespond ('events_list', $list);
+    }
+
+    /**
+     * get list of items within a particular distance
+     */
+    public function dlistAction ()
+    {
+        $dist = Validators::getFloat ($_REQUEST['dist']);
+        $lat = Validators::getFloat ($_REQUEST['lat']);
+        $long = Validators::getFloat ($_REQUEST['long']);
+
+        if (!$dist || !$lat || !$long)
+            throw new GameError ('Required fields are missing');
+
+        $list = array ();
+        $q = Query::getDistQuery ($dist, $lat, $long);
+        foreach (Event::find ($q) as $e)
+            $list[] = $e->getItemObject();
+        $this->ajaxRespond ('smart_locations_list', $list);
     }
 
     /**
@@ -72,6 +92,34 @@ class EventsController extends Controller
 
         $this->ajaxRespond ('event_created', array (
             'event_id' => $evt->id,
+        ) );
+    }
+
+    /**
+     * upvote an event
+     * +5 from the person, who asked
+     * +1 from the rest
+     * +0 for answering own questions
+     */
+    public function upvoteAction ()
+    {
+        $evt_id = Validators::getNum ($_REQUEST['event_id']);
+        $evt = Event::findByPk ($evt_id);
+
+        $plus = 1;
+        if ($evt->question_id && $evt->question->author->id == System::$user->id)
+            if ($evt->question->author->id == $evt->author->id)
+                $plus = 0;
+            else
+                $plus = 5;
+
+        $evt->upvoted += $plus;
+        $evt->save();
+        $evt->author->rating += $plus;
+        $evt->author->save();
+
+        $this->ajaxRespond ('upvoted', array (
+            'upvotes' => $evt->upvoted,
         ) );
     }
 }

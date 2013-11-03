@@ -3,23 +3,19 @@ class UserController extends Controller
 {
     protected static $access = array (
         'default' => array ('guest'),
+        'track' => array ('user'),
     );
-    protected $defaultAction = 'dashboard';
+    protected $defaultAction = 'login';
     
     /**
-     * index page is basically a html page.
+     * check session, if it is still valid
      */
-    public function indexAction ()
+    public function chsessAction ()
     {
-        $this->render ('user/index');
-    }
-    
-    /**
-     * dashboard
-     */
-    public function dashboardAction ()
-    {
-        $this->render ('user/dashboard');
+        if (System::$user->checkAccess ('user'))
+            $this->ajaxSuccess ();
+        else
+            throw new GameError ('Your session has expired');
     }
     
     /**
@@ -95,6 +91,44 @@ class UserController extends Controller
         foreach (User::getOnline () as $u)
             $list[] = $u->getItemObject ();
         $this->ajaxRespond ('online_users', $list);
+    }
+
+    /**
+     * get list of items within a particular distance
+     */
+    public function dlistAction ()
+    {
+        $dist = Validators::getFloat ($_REQUEST['dist']);
+        $lat = Validators::getFloat ($_REQUEST['lat']);
+        $long = Validators::getFloat ($_REQUEST['long']);
+
+        if (!$dist || !$lat || !$long)
+            throw new GameError ('Required fields are missing');
+
+        $list = array ();
+        $q = Query::getDistQuery ($dist, $lat, $long);
+        $q .= " AND id IN (SELECT user_id FROM ".Session::getTableName()." WHERE last_activity > NOW() - INTERVAL 5 MINUTE);";
+        foreach (User::find ($q) as $u)
+            $list[] = $u->getItemObject();
+        $this->ajaxRespond ('smart_locations_list', $list);
+    }
+
+    /**
+     * store location
+     */
+    public function trackAction ()
+    {
+        $lat = Validators::getFloat ($_REQUEST['lat']);
+        $long = Validators::getFloat ($_REQUEST['long']);
+
+        if (!$lat || !$long)
+            throw new GameError ('Required fields are missing');
+
+        System::$user->latitude = $lat;
+        System::$user->longtitude = $long;
+        System::$user->save ();
+
+        $this->ajaxSuccess ();
     }
 }
 ?>
