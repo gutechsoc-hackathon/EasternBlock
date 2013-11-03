@@ -12,7 +12,9 @@ class EventsController extends Controller
      */
     public function itemAction ()
     {
-        $this->render ('events/item');
+        $id = Validators::getNum ($_REQUEST['event_id']);
+        $event = Event::findByPk ($id);
+        $this->ajaxRespond ('event_item', $event->getItemObject ());
     }
     
     /**
