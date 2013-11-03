@@ -19,7 +19,7 @@ import android.view.View;
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 
-	static public DisplayMetrics metrics;
+	private DisplayMetrics metrics;
 	private boolean logedIn = false;
 	private Menu menu;
 	

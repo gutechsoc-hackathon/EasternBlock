@@ -2,21 +2,15 @@ package com.guts.hackathon;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PostEventActivity extends Activity {
 
@@ -39,10 +33,7 @@ public class PostEventActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CAPTURE_IMAGE) {
-                Bundle extras = data.getExtras();
-                Bitmap img = (Bitmap) extras.get("data");
-                LinearLayout layout = (LinearLayout) findViewById(R.id.eventpost_layout);
-                layout.setBackground(new BitmapDrawable(getResources(), img));
+
             }
         } else {
             finish();

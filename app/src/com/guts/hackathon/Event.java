@@ -4,124 +4,69 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class Event {
-	private	double id;
+	private	double ID;
+	private String locName;
 	private String description;
-	private Date time_created, expires;
-	private double longitude, latitude;
-	private int type;
-	private ArrayList<String> tags;
-	private int user_id;
-	private String user_name;
-	private int question_id;
-	private ArrayList<Media> media;
-	private Location location;
+	private Date begin, end;
+	private double latitude, longitude;
+	private ArrayList<String> tags, media;
 	
 	public Event() {
 		
 	}
 	
-	public double getId() {
-		return id;
+	public double getID() {
+		return ID;
 	}
-
-	public void setId(double id) {
-		this.id = id;
+	public void setID(double iD) {
+		ID = iD;
 	}
-
+	public String getLocName() {
+		return locName;
+	}
+	public void setLocName(String locName) {
+		this.locName = locName;
+	}
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Date getTime_created() {
-		return time_created;
+	public Date getBegin() {
+		return begin;
 	}
-
-	public void setTime_created(Date time_created) {
-		this.time_created = time_created;
+	public void setBegin(Date begin) {
+		this.begin = begin;
 	}
-
-	public Date getExpires() {
-		return expires;
+	public Date getEnd() {
+		return end;
 	}
-
-	public void setExpires(Date expires) {
-		this.expires = expires;
+	public void setEnd(Date end) {
+		this.end = end;
 	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
 	public double getLatitude() {
 		return latitude;
 	}
-
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-
-	public int getType() {
-		return type;
+	public double getLongitude() {
+		return longitude;
 	}
-
-	public void setType(int type) {
-		this.type = type;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
-
 	public ArrayList<String> getTags() {
 		return tags;
 	}
-
 	public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
-
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
-	public String getUser_name() {
-		return user_name;
-	}
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
-
-	public int getQuestion_id() {
-		return question_id;
-	}
-
-	public void setQuestion_id(int question_id) {
-		this.question_id = question_id;
-	}
-
-	public ArrayList<Media> getMedia() {
+	public ArrayList<String> getMedia() {
 		return media;
 	}
-
-	public void setMedia(ArrayList<Media> media) {
+	public void setMedia(ArrayList<String> media) {
 		this.media = media;
 	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-	
 }

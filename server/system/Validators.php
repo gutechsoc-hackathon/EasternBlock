@@ -11,12 +11,7 @@
         
         public static function getNum ($data)
         {
-            return preg_replace ('/[^0-9-]/', '', $data);
-        }
-
-        public static function getFloat ($data)
-        {
-            return preg_replace ('/[^0-9.-]/', '', $data);
+            return preg_replace ('/[^0-9]/', '', $data);
         }
         
         public static function getLetters ($data)
@@ -31,7 +26,7 @@
         
         public static function getPasswordFormat ($data)
         {
-            return System::mysqlRealEscapeString ($data);
+            return preg_replace ('/[^a-zA-Z0-9_]/', '', $data);
         }
         
         public static function getEmailFormat ($data)
@@ -42,8 +37,8 @@
         public static function getSeo ($data)
         {
             $source = array (' ', ',', '_', '–', '—', '+', '@');
-            $destin = array ('-', '-', '-', '-', '-', '-', '-');
-            return str_replace ($source, $destin, strtolower (preg_replace ('/[^a-zA-Z0-9,_–—+@-]/', '', $data)));
+            //$destin = array ('-', '-', '-', '-', '-', '-');
+            return str_replace ($source, '-', strtolower (preg_replace ('/[^a-zA-Z0-9,_–—+@-]/', '', $data)));
         }
 
         public static function getMysqlSafe ($data)
@@ -82,7 +77,7 @@
         {
             return preg_match ('/[0-9]/', $data);
         }
-
+        
         public static function seoValidator ($data, $tmp)
         {
             return preg_match ('/[a-z0-9-]/', $data);
