@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -18,9 +17,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -40,6 +39,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
+@SuppressLint("NewApi")
 public class LoginActivity extends Activity {
 
 
@@ -151,6 +151,12 @@ public class LoginActivity extends Activity {
 		this.menu = menu;
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
+		
+		if(!ThisUser.getInstance().session.isEmpty()){
+			logedIn = true;
+		} else {
+			logedIn = false;
+		}
 		
 		if(logedIn){
 			showOption(R.id.settings);
@@ -410,24 +416,6 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 
-
-//			try {
-//				// Simulate network access.
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				return false;
-//			}
-//
-//			for (String credential : DUMMY_CREDENTIALS) {
-//				String[] pieces = credential.split(":");
-//				if (pieces[0].equals(mEmail)) {
-//					// Account exists, return true if the password matches.
-//					return pieces[1].equals(mPassword);
-//				}
-//			}
-
-			// TODO: register the new account here.
-			//return true;
 		}
 
 		@Override
