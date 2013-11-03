@@ -20,8 +20,8 @@ public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
 	private Activity activity;
 	private static LayoutInflater inflater=null;
 	private ArrayList<Question> questions;
-	
-    public QuestionsAdapter(Activity a) {
+
+	public QuestionsAdapter(Activity a) {
         activity = a;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         questions = new ArrayList<Question>();
@@ -43,6 +43,7 @@ public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
 		response = response.substring(response.indexOf("["),response.lastIndexOf("]")+1);
 		questions = gson.fromJson(response, listType);
 		notifyDataSetChanged();
+		DataAccess.updateQuestions(questions);
 	}
 
 
@@ -74,5 +75,4 @@ public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
         qDesc.setText(questions.get(position).getQuestion());
         return elem;
 	}
-
 }
