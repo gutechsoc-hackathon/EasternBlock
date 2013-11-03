@@ -62,7 +62,7 @@ public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return 0;
+		return questions.get(position).getId();
 	}
 
 	@Override

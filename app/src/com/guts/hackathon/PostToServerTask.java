@@ -60,7 +60,7 @@ public class PostToServerTask extends AsyncTask<String, Void, String>{
 			}
 			buf.close();
 			ips.close();
-			Log.d("Events ---", sb.toString());
+			//Log.d("Events ---", sb.toString());
 			return sb.toString();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

@@ -16,16 +16,17 @@ android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/questionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Question"
-            android:id="@+id/textView" />
+             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText" />
+            android:id="@+id/questionInput" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,12 +39,12 @@ android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Time range"
-            android:id="@+id/textView2" />
+            android:id="@+id/questionTRlabel" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner" />
+            android:id="@+id/questionTimeRange" />
 
     </LinearLayout>
 
@@ -58,12 +59,12 @@ android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Tag"
-            android:id="@+id/textView3" />
+            android:id="@+id/questionTagLabel" />
 
         <MultiAutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/multiAutoCompleteTextView" />
+            android:id="@+id/questionTags" />
 
     </LinearLayout>
 
@@ -71,7 +72,7 @@ android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:id="@+id/submitButton"
+        android:id="@+id/questionSubmitButton"
         android:background="@drawable/btn_blue"
         android:textColor="#ffffff"
         android:layout_gravity="center_horizontal" />
