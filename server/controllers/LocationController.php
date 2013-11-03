@@ -13,8 +13,8 @@ class LocationController extends Controller
     public function itemAction ()
     {
         $id = Validators::getNum ($_REQUEST['location_id']);
-        $loction = Location::findByPk ($id);
-        $this->ajaxRespond ('location_item', $loction->getItemObject ());
+        $location = Location::findByPk ($id);
+        $this->ajaxRespond ('location_item', $location->getItemObject ());
     }
     
     /**
