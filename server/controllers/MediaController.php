@@ -20,11 +20,21 @@ class MediaController extends Controller
     /**
      * get a list of all media for an event
      */
-    public function listAction ()
+    public function elistAction ()
     {
         $evt_id = Validators::getNum ($_REQUEST['event_id']);
         $evt = Event::findByPk ($evt_id);
-        $this->ajaxRespond ('locations_list', Media::getList ($evt->media));
+        $this->ajaxRespond ('media_elist', Media::getList ($evt->media));
+    }
+
+    /**
+     * get a list of all media for a user
+     */
+    public function ulistAction ()
+    {
+        $uid = Validators::getNum ($_REQUEST['user_id']);
+        $u = User::findByPk ($uid);
+        $this->ajaxRespond ('media_ulist', Media::getList ($u->media));
     }
 
     /**
@@ -36,6 +46,9 @@ class MediaController extends Controller
 
         if ($uf['error'])
             throw new GameError ($uf['error']);
+
+        if (!$uf)
+            throw new GameError ('No file has been found');
 
         $allowed = array ('image/jpeg', 'image/jpg', 'image/jp_', 'application/jpg', 'application/x-jpg', 'image/pjpeg', 'image/pipeg', 'image/vnd.swiftview-jpeg', 'image/x-xbitmap', 'image/png', 'application/png', 'application/x-png' );
         if (!in_array ($uf['type'], $allowed)) 
