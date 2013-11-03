@@ -71,7 +71,7 @@ public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
         if(convertView==null) {
         	elem = inflater.inflate(R.layout.question, null);
         }
-        TextView qDesc = (TextView) elem.findViewById(R.id.questionsList);
+        TextView qDesc = (TextView) elem.findViewById(R.id.questionDescription);
         qDesc.setText(questions.get(position).getQuestion());
         return elem;
 	}

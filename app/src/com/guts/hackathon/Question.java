@@ -3,8 +3,6 @@ package com.guts.hackathon;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import android.R.integer;
-
 public class Question {
 	private int id;
 	private String question; 

@@ -1,7 +1,5 @@
 package com.guts.hackathon;
 
-import android.R.integer;
-
 public class Media {
 	private int id;
 	private String user_name;

@@ -10,7 +10,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:onClick=""
         android:scaleType="fitStart"
         android:src="@drawable/mapicon" />
 
