@@ -72,7 +72,7 @@ public class LoginActivity extends Activity {
 	private TextView mLoginStatusMessageView;
 	private Menu menu;
 	private Button logIn, signUp, register;
-	
+
 
 
 	@Override
@@ -91,17 +91,17 @@ public class LoginActivity extends Activity {
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordViewRep = (EditText) findViewById(R.id.password_rep);
 		mPasswordView
-				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin(false);
-							return true;
-						}
-						return false;
-					}
-				});
+		.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int id,
+					KeyEvent keyEvent) {
+				if (id == R.id.login || id == EditorInfo.IME_NULL) {
+					attemptLogin(false);
+					return true;
+				}
+				return false;
+			}
+		});
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
@@ -115,10 +115,10 @@ public class LoginActivity extends Activity {
 						attemptLogin(false);
 					}
 				});
-		
+
 		signUp = (Button) findViewById(R.id.sign_up_button);
 		register = (Button) findViewById(R.id.register_button);
-		
+
 		signUp.setOnClickListener(
 				new View.OnClickListener() {
 					@Override
@@ -133,9 +133,9 @@ public class LoginActivity extends Activity {
 						setTitle("Registration");
 					}
 				});
-		
-		
-		
+
+
+
 		register.setOnClickListener(
 				new View.OnClickListener() {
 					@Override
@@ -151,7 +151,7 @@ public class LoginActivity extends Activity {
 		this.menu = menu;
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
-		
+
 		if(logedIn){
 			showOption(R.id.settings);
 			hideOption(R.id.action_forgot_password);
@@ -163,17 +163,17 @@ public class LoginActivity extends Activity {
 		}
 		return true;
 	}
-	
+
 	private void hideOption(int id)
 	{
-	    MenuItem item = menu.findItem(id);
-	    item.setVisible(false);
+		MenuItem item = menu.findItem(id);
+		item.setVisible(false);
 	}
 
 	private void showOption(int id)
 	{
-	    MenuItem item = menu.findItem(id);
-	    item.setVisible(true);
+		MenuItem item = menu.findItem(id);
+		item.setVisible(true);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class LoginActivity extends Activity {
 		if (mAuthTask != null) {
 			return;
 		}
-		
+
 		this.reg=reg;
 
 		// Reset errors.
@@ -203,7 +203,7 @@ public class LoginActivity extends Activity {
 
 		boolean cancel = false;
 		View focusView = null;
-		
+
 
 
 		if(reg){
@@ -218,7 +218,7 @@ public class LoginActivity extends Activity {
 				cancel = true;
 			}
 		}
-		
+
 		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
 			mPasswordView.setError(getString(R.string.error_field_required));
@@ -229,9 +229,9 @@ public class LoginActivity extends Activity {
 			focusView = mPasswordView;
 			cancel = true;
 		} 
-		
+
 		if(reg){
-			
+
 			if (TextUtils.isEmpty(mEmailRep)) {
 				mEmailViewRep.setError(getString(R.string.error_field_required));
 				focusView = mEmailViewRep;
@@ -253,7 +253,7 @@ public class LoginActivity extends Activity {
 			focusView = mEmailView;
 			cancel = true;
 		}
-		
+
 		if(reg){
 			if (TextUtils.isEmpty(mName)) {
 				mNameView.setError(getString(R.string.error_field_required));
@@ -294,25 +294,25 @@ public class LoginActivity extends Activity {
 
 			mLoginStatusView.setVisibility(View.VISIBLE);
 			mLoginStatusView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mLoginStatusView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
+			.alpha(show ? 1 : 0)
+			.setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					mLoginStatusView.setVisibility(show ? View.VISIBLE
+							: View.GONE);
+				}
+			});
 
 			mLoginFormView.setVisibility(View.VISIBLE);
 			mLoginFormView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mLoginFormView.setVisibility(show ? View.GONE
-									: View.VISIBLE);
-						}
-					});
+			.alpha(show ? 0 : 1)
+			.setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					mLoginFormView.setVisibility(show ? View.GONE
+							: View.VISIBLE);
+				}
+			});
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
@@ -329,81 +329,81 @@ public class LoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-		    HttpClient httpclient = new DefaultHttpClient();
-		    HttpPost httppost = new HttpPost("http://shacron.twilightparadox.com/hackathon/index.php");
-		    
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost("http://shacron.twilightparadox.com/hackathon/index.php");
+
 
 			InputStream inputStream = null;
 			String result = "";
 			JSONObject jObject = null;
 			JSONObject data= null;
-			
-		    try {
-		        // Add your data
-		        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		        
-		        if(reg){
-		        	nameValuePairs.add(new BasicNameValuePair("name", mName));
-		        	nameValuePairs.add(new BasicNameValuePair("r", "user/register"));
-		        } else
-		        	nameValuePairs.add(new BasicNameValuePair("r", "user/login"));
-		        nameValuePairs.add(new BasicNameValuePair("email", mEmail));
-		        nameValuePairs.add(new BasicNameValuePair("pass", mPassword));
-		        
-		        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-		        // Execute HTTP Post Request
-		        HttpResponse response = httpclient.execute(httppost);
-		        HttpEntity entity = response.getEntity();
-		        
-		        inputStream = entity.getContent();
-		        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-		        StringBuilder sb = new StringBuilder();
+			try {
+				// Add your data
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
-		        String line = null;
-		        while ((line = reader.readLine()) != null)
-		        {
-		            sb.append(line + "\n");
-		        }
-		        inputStream.close();
-		        result = sb.toString();
-		        
-		        
-		    } catch (ClientProtocolException e) {
-		    	return false;
-		        // TODO Auto-generated catch block
-		    } catch (IOException e) {
-		    	return false;
-		        // TODO Auto-generated catch block
-		    }
-		    
-		    
-		    try {
+				if(reg){
+					nameValuePairs.add(new BasicNameValuePair("name", mName));
+					nameValuePairs.add(new BasicNameValuePair("r", "user/register"));
+				} else
+					nameValuePairs.add(new BasicNameValuePair("r", "user/login"));
+				nameValuePairs.add(new BasicNameValuePair("email", mEmail));
+				nameValuePairs.add(new BasicNameValuePair("pass", mPassword));
+
+				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+				// Execute HTTP Post Request
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+
+				inputStream = entity.getContent();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+				StringBuilder sb = new StringBuilder();
+
+				String line = null;
+				while ((line = reader.readLine()) != null)
+				{
+					sb.append(line + "\n");
+				}
+				inputStream.close();
+				result = sb.toString();
+
+
+			} catch (ClientProtocolException e) {
+				return false;
+				// TODO Auto-generated catch block
+			} catch (IOException e) {
+				return false;
+				// TODO Auto-generated catch block
+			}
+
+
+			try {
 				jObject = new JSONObject(result);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
-		    ThisUser you = ThisUser.getInstance();
-		    String type; 
-		    try {
-		    	System.out.println("fetch data");
-		    	type = jObject.getString("type");
-		    	data = jObject.getJSONObject("data");
-		    	if(type.equals("auth_response")){
-					you.session = data.getString("sess_id");
-					you.name = data.getString("name");
-		    		return true;
-		    	} else if(type.equals("error")){
+			ThisUser.getInstance();
+			String type; 
+			try {
+				System.out.println("fetch data");
+				type = jObject.getString("type");
+				data = jObject.getJSONObject("data");
+				if(type.equals("auth_response")){
+					ThisUser.session = data.getString("sess_id");
+					ThisUser.name = data.getString("name");
+					return true;
+				} else if(type.equals("error")){
 					String error = data.getString("msg");
 					mPasswordView.setError(error);
 					return false;
 				} else {
 					return false;
 				}
-					
-					
+
+
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -411,20 +411,20 @@ public class LoginActivity extends Activity {
 			}
 
 
-//			try {
-//				// Simulate network access.
-//				Thread.sleep(2000);
-//			} catch (InterruptedException e) {
-//				return false;
-//			}
-//
-//			for (String credential : DUMMY_CREDENTIALS) {
-//				String[] pieces = credential.split(":");
-//				if (pieces[0].equals(mEmail)) {
-//					// Account exists, return true if the password matches.
-//					return pieces[1].equals(mPassword);
-//				}
-//			}
+			//			try {
+			//				// Simulate network access.
+			//				Thread.sleep(2000);
+			//			} catch (InterruptedException e) {
+			//				return false;
+			//			}
+			//
+			//			for (String credential : DUMMY_CREDENTIALS) {
+			//				String[] pieces = credential.split(":");
+			//				if (pieces[0].equals(mEmail)) {
+			//					// Account exists, return true if the password matches.
+			//					return pieces[1].equals(mPassword);
+			//				}
+			//			}
 
 			// TODO: register the new account here.
 			//return true;
@@ -439,7 +439,7 @@ public class LoginActivity extends Activity {
 				finish();
 			} else {
 				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
 		}
