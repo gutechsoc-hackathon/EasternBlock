@@ -19,7 +19,7 @@ import android.view.View;
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 
-	static public DisplayMetrics metrics;
+	private DisplayMetrics metrics;
 	private boolean logedIn = false;
 	private Menu menu;
 	
@@ -166,4 +166,9 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, PostEventActivity.class);
         startActivity(intent);
     }
+    
+	public void showMap(View view) {
+		Intent intent = new Intent(this, MapActivity.class);
+		startActivity(intent);
+	}
 }
