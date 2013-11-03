@@ -25,6 +25,7 @@ public class PostEventActivity extends Activity {
     protected RadioGroup mRadioGroup;
     protected RadioButton mRadioEvent, mRadioWarning;
     protected MultiAutoCompleteTextView mTagTextView;
+    private Bitmap img;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class PostEventActivity extends Activity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CAPTURE_IMAGE) {
                 Bundle extras = data.getExtras();
-                Bitmap img = (Bitmap) extras.get("data");
+                img = (Bitmap) extras.get("data");
                 LinearLayout layout = (LinearLayout) findViewById(R.id.postevent_layout);
                 layout.setBackground(new BitmapDrawable(getResources(), img));
             }
@@ -93,8 +94,17 @@ public class PostEventActivity extends Activity {
                     cancel = true;
                 }
 
-                if (!cancel)
-                    finish();
+                if (!cancel) {
+                	/*submit an Event:
+					r=events/register
+					description= // string
+					longtitude= // double
+					latitude= // double
+					location_id= // int
+					tags= //json array of strings
+					expires= //timestamp */
+                    
+                }
             }
         });
     }
