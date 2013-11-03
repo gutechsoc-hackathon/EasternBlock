@@ -5,6 +5,8 @@
     <string name="error_title">you dun goofd</string>
     <string name="settings">Settings</string>
     <string name="action_settings">Settings</string>
+    <string name="post_event">Post</string>
+    <string name="ask_question">Ask</string>
     <string name="log_in">Log in</string>
     <string name="sign_up">Sign up</string>
     <string name="log_out">Log out</string>

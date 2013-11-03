@@ -1,18 +1,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/post_event"
+        android:showAsAction="always"
+        android:title="@string/post_event"/>
+    <item
+        android:id="@+id/ask_question"
+        android:showAsAction="always"
+        android:title="@string/ask_question"/>
+    <item
         android:id="@+id/log_in"
+        android:showAsAction="never"
         android:title="@string/log_in"/>
     <item
         android:id="@+id/log_out"
-        android:title="@string/log_out" android:visible="true"/>        
-	        
-	<item
+        android:showAsAction="never"
+        android:title="@string/log_out"
+        android:visible="true"/>
+    <item
         android:id="@+id/settings"
-        android:title="@string/settings" android:enabled="false"/>
-	
-	<item
+        android:enabled="false"
+        android:showAsAction="never"
+        android:title="@string/settings"/>
+    <item
         android:id="@+id/profile"
-        android:title="@string/profile" android:enabled="false"/>
+        android:enabled="false"
+        android:showAsAction="never"
+        android:title="@string/profile"/>
 
 </menu>
