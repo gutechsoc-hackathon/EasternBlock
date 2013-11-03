@@ -1,7 +1,6 @@
 package com.guts.hackathon;
-
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Event {
 	private	double id;
