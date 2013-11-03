@@ -1,5 +1,9 @@
 package com.guts.hackathon;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -42,6 +46,9 @@ public class LoginActivity extends Activity {
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
+	private String mEmailRep;
+	private String mPasswordRep;
+	private String mName;
 	private boolean logedIn;
 
 	// UI references.
@@ -49,12 +56,13 @@ public class LoginActivity extends Activity {
 	private EditText mPasswordView;
 	private EditText mEmailViewRep;
 	private EditText mPasswordViewRep;
-	private EditText name;
+	private EditText mNameView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	private Menu menu;
 	private Button logIn, signUp, register;
+	
 
 
 	@Override
@@ -63,8 +71,8 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 
-		name = (EditText) findViewById(R.id.name);
-		// Set up the login form.
+		mNameView = (EditText) findViewById(R.id.name);
+		// Set up the login/registration form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailViewRep = (EditText) findViewById(R.id.email_rep);
@@ -78,7 +86,7 @@ public class LoginActivity extends Activity {
 					public boolean onEditorAction(TextView textView, int id,
 							KeyEvent keyEvent) {
 						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
+							attemptLogin(false);
 							return true;
 						}
 						return false;
@@ -94,7 +102,7 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						attemptLogin();
+						attemptLogin(false);
 					}
 				});
 		
@@ -107,8 +115,8 @@ public class LoginActivity extends Activity {
 					public void onClick(View view) {
 						mEmailViewRep.setVisibility(1);
 						mPasswordViewRep.setVisibility(1);
-						name.setVisibility(1);
-						name.requestFocus(1);
+						mNameView.setVisibility(1);
+						mNameView.requestFocus(1);
 						logIn.setVisibility(View.GONE);
 						signUp.setVisibility(View.GONE);
 						register.setVisibility(1);
@@ -123,6 +131,7 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						signUp.setVisibility(View.GONE);
+						attemptLogin(true);
 					}
 				});
 	}
@@ -162,10 +171,13 @@ public class LoginActivity extends Activity {
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
-	public void attemptLogin() {
+	public void attemptLogin(boolean reg) {
 		if (mAuthTask != null) {
 			return;
 		}
+		
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost("localhost/index.php");
 
 		// Reset errors.
 		mEmailView.setError(null);
@@ -174,19 +186,51 @@ public class LoginActivity extends Activity {
 		// Store values at the time of the login attempt.
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
+		if(reg){
+			mEmailRep = mEmailViewRep.getText().toString();
+			mPasswordRep = mPasswordViewRep.getText().toString();
+			mName = mNameView.getText().toString();
+		}
 
 		boolean cancel = false;
 		View focusView = null;
+		
 
+
+		if(reg){
+			if (TextUtils.isEmpty(mPasswordRep)) {
+				mPasswordViewRep.setError(getString(R.string.error_field_required));
+				focusView = mPasswordViewRep;
+				cancel = true;
+			} else if (mPassword.equals(mPasswordRep)) {
+				mPasswordView.setError(getString(R.string.error_pswd_match));
+				focusView = mPasswordView;
+				cancel = true;
+			}
+		}
+		
 		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
-		} else if (mPassword.length() < 4) {
+		} else if (mPassword.length() < 6) {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
+		} 
+		
+		if(reg){
+			
+			if (TextUtils.isEmpty(mEmailRep)) {
+				mEmailViewRep.setError(getString(R.string.error_field_required));
+				focusView = mEmailViewRep;
+				cancel = true;
+			} else if (!mEmail.equals(mEmailRep)) {
+				mEmailView.setError(getString(R.string.error_email_match));
+				focusView = mEmailView;
+				cancel = true;
+			}
 		}
 
 		// Check for a valid email address.
@@ -198,6 +242,18 @@ public class LoginActivity extends Activity {
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
 			cancel = true;
+		}
+		
+		if(reg){
+			if (TextUtils.isEmpty(mName)) {
+				mNameView.setError(getString(R.string.error_field_required));
+				focusView = mNameView;
+				cancel = true;
+			} else if (mName.length() < 3) {
+				mNameView.setError(getString(R.string.error_invalid_name));
+				focusView = mNameView;
+				cancel = true;
+			} 
 		}
 
 		if (cancel) {

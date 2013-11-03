@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2013 at 02:09 PM
+-- Generation Time: Nov 02, 2013 at 10:43 PM
 -- Server version: 5.5.34-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.3
 
@@ -29,14 +29,29 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
-  `expires` datetime NOT NULL,
-  `coordinates` varchar(127) NOT NULL,
+  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expires` datetime DEFAULT NULL,
+  `longtitude` double NOT NULL,
+  `latitude` double NOT NULL,
   `type_id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
   `question_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `description`, `time_created`, `expires`, `longtitude`, `latitude`, `type_id`, `location_id`, `question_id`, `user_id`) VALUES
+(5, 'stuff', '2013-11-02 22:15:21', '2013-11-02 23:15:21', 1.5, -2.33, 1, 1, NULL, 1),
+(4, 'stuff', '2013-11-02 22:12:15', '2013-11-02 23:12:15', 1.5, -2.33, 1, 1, NULL, 1),
+(6, 'stuff', '2013-11-02 22:19:12', '0000-00-00 00:00:00', 1.5, -2.33, 1, 1, NULL, 1),
+(7, 'stuff', '2013-11-02 22:20:11', NULL, 1.5, -2.33, 1, 1, NULL, 1),
+(8, 'stuff', '2013-11-02 22:20:44', '2013-11-03 22:20:44', 1.5, -2.33, 1, 1, NULL, 1),
+(9, 'stuff', '2013-11-02 22:23:07', '2013-11-03 22:23:07', 1.5, -2.33, 1, 1, NULL, 1),
+(10, 'stuff', '2013-11-02 22:24:24', '2013-11-03 22:24:24', 1.5, -2.33, 1, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -47,9 +62,18 @@ CREATE TABLE IF NOT EXISTS `events` (
 CREATE TABLE IF NOT EXISTS `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL,
-  `coordinates` varchar(63) NOT NULL,
+  `seo` varchar(63) NOT NULL,
+  `longtitude` double NOT NULL,
+  `latitude` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `name`, `seo`, `longtitude`, `latitude`) VALUES
+(1, 'University of Glasgow', 'universityofglasgow', 1.5, -3.22);
 
 -- --------------------------------------------------------
 
@@ -87,11 +111,33 @@ CREATE TABLE IF NOT EXISTS `media_types` (
 CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(63) NOT NULL,
-  `coordinates` varchar(63) NOT NULL,
+  `longtitude` double NOT NULL,
+  `latitude` double NOT NULL,
   `location_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sess_id` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `sess_id`, `user_id`, `last_activity`) VALUES
+(1, '614bfb0f86793c46338f758278fa7132', 1, '2013-11-02 16:00:46');
 
 -- --------------------------------------------------------
 
@@ -104,7 +150,15 @@ CREATE TABLE IF NOT EXISTS `tag2event_rel` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tag2event_rel`
+--
+
+INSERT INTO `tag2event_rel` (`id`, `from_id`, `to_id`) VALUES
+(2, 2, 10),
+(3, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -128,8 +182,17 @@ CREATE TABLE IF NOT EXISTS `tag2question_rel` (
 CREATE TABLE IF NOT EXISTS `tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL,
+  `seo` varchar(63) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`, `seo`) VALUES
+(2, 'date', 'date'),
+(3, 'evening', 'evening');
 
 -- --------------------------------------------------------
 
@@ -141,7 +204,15 @@ CREATE TABLE IF NOT EXISTS `types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `types`
+--
+
+INSERT INTO `types` (`id`, `name`) VALUES
+(1, 'event'),
+(2, 'warning');
 
 -- --------------------------------------------------------
 
@@ -159,7 +230,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` int(3) NOT NULL DEFAULT '0',
   `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `pass`, `name`, `rating`, `roles`, `status`, `registered`) VALUES
+(1, 'vasya@a.ua', '202cb962ac59075b964b07152d234b70', 'Vasya Petrov', 0, 'user', 0, '2013-11-02 15:54:57'),
+(3, 'petya@a.ua', 'e10adc3949ba59abbe56e057f20f883e', 'petya@a.ua', 0, 'user', 0, '2013-11-02 16:51:06');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
