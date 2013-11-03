@@ -36,7 +36,7 @@ android:paddingTop="@dimen/activity_vertical_margin"
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText" />
+                android:id="@+id/postevent_descText" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,6 +108,26 @@ android:paddingTop="@dimen/activity_vertical_margin"
                 android:layout_alignParentRight="true"
                 android:checked="false" />
         </RadioGroup>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Location name"
+                android:id="@+id/textView3" />
+
+            <com.guts.hackathon.widget.InstantMultiAutoComplete
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/postevent_locationNameView" />
+
+        </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"

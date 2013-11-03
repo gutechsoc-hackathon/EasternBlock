@@ -407,7 +407,7 @@ public class LoginActivity extends Activity {
 					CheckBox rememberBox = (CheckBox) findViewById(R.id.storeSessionCheckbox);
 					if (rememberBox.isChecked()) {
 						SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
-						pref.edit().putString("SESSION", ThisUser.session).putString("NAME", ThisUser.name).commit();
+						pref.edit().putString("SESSION", ThisUser.session).putString("NAME", ThisUser.name).apply();
 					}
 					return true;
 				} else if(type.equals("error")){
