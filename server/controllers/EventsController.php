@@ -29,6 +29,25 @@ class EventsController extends Controller
     }
 
     /**
+     * get list of items within a particular distance
+     */
+    public function dlistAction ()
+    {
+        $dist = Validators::getFloat ($_REQUEST['dist']);
+        $lat = Validators::getFloat ($_REQUEST['lat']);
+        $long = Validators::getFloat ($_REQUEST['long']);
+
+        if (!$dist || !$lat || !$long)
+            throw new GameError ('Required fields are missing');
+
+        $list = array ();
+        $q = Query::getDistQuery ($dist, $lat, $long);
+        foreach (Event::find ($q) as $e)
+            $list[] = $e->getItemObject();
+        $this->ajaxRespond ('smart_locations_list', $list);
+    }
+
+    /**
      * register a new event
      */
     public function registerAction ()
