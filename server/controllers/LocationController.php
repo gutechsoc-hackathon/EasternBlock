@@ -5,7 +5,7 @@ class LocationController extends Controller
         'default' => array ('guest'),
         'register' => array ('user'),
     );
-    protected $defaultAction = 'item';
+    protected $defaultAction = 'list';
     
     /**
      * get an individual location info
@@ -13,8 +13,8 @@ class LocationController extends Controller
     public function itemAction ()
     {
         $id = Validators::getNum ($_REQUEST['location_id']);
-        $loction = Location::findByPk ($id);
-        $this->ajaxRespond ('location_item', $loction->getItemObject ());
+        $location = Location::findByPk ($id);
+        $this->ajaxRespond ('location_item', $location->getItemObject ());
     }
     
     /**
@@ -70,19 +70,6 @@ class LocationController extends Controller
         $this->ajaxRespond ('location_created', array (
             'location_id' => $loc->id,
         ) );
-    }
-
-    public function getExpires ($expires)
-    {
-        $q = '';
-        switch ($expires)
-        {
-            case '3': $q = 'NOW() + INTERVAL 30 DAY'; break;
-            case '2': $q = 'NOW() + INTERVAL 7 DAY'; break;
-            case '1': $q = 'NOW() + INTERVAL 24 HOUR'; break;
-            default: $q = 'NOW() + INTERVAL 1 HOUR'; break;
-        }
-        System::doMysql ("UPDATE ".Event::getTableName()." SET expires = '".$q."' WHERE id=".$this->id.";");
     }
 }
 ?>
