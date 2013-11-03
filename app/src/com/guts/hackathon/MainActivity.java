@@ -1,5 +1,6 @@
 package com.guts.hackathon;
 
+import android.R;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -7,8 +8,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -94,6 +93,7 @@ public class MainActivity extends Activity {
 
     } */
 	
+	@Override
 	public boolean onMenuItemSelected(int id, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.log_in:
@@ -138,7 +138,8 @@ public class MainActivity extends Activity {
 
 	    /* The following are each of the ActionBar.TabListener callbacks */
 
-	    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+	    @Override
+		public void onTabSelected(Tab tab, FragmentTransaction ft) {
 	        // Check if the fragment is already initialized
 	        if (mFragment == null) {
 	            // If not, instantiate and add it to the activity
@@ -150,14 +151,16 @@ public class MainActivity extends Activity {
 	        }
 	    }
 
-	    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	    @Override
+		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 	        if (mFragment != null) {
 	            // Detach the fragment, because another one is being attached
 	            ft.detach(mFragment);
 	        }
 	    }
 
-	    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	    @Override
+		public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	        // User selected the already selected tab. Usually do nothing.
 	    }
 	}

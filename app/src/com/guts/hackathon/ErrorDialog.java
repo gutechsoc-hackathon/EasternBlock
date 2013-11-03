@@ -1,5 +1,6 @@
 package com.guts.hackathon;
 
+import android.R;
 import android.app.AlertDialog;
 import android.content.Context;
 
