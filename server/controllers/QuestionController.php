@@ -29,6 +29,25 @@ class QuestionController extends Controller
     }
 
     /**
+     * get list of items within a particular distance
+     */
+    public function dlistAction ()
+    {
+        $dist = Validators::getFloat ($_REQUEST['dist']);
+        $lat = Validators::getFloat ($_REQUEST['lat']);
+        $long = Validators::getFloat ($_REQUEST['long']);
+
+        if (!$dist || !$lat || !$long)
+            throw new GameError ('Required fields are missing');
+
+        $list = array ();
+        $q = Query::getDistQuery ($dist, $lat, $long);
+        foreach (Question::find ($q) as $q)
+            $list[] = $q->getItemObject();
+        $this->ajaxRespond ('smart_locations_list', $list);
+    }
+
+    /**
      * register a new question
      */
     public function registerAction ()
