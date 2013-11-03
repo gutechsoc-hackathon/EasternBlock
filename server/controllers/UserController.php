@@ -3,6 +3,7 @@ class UserController extends Controller
 {
     protected static $access = array (
         'default' => array ('guest'),
+        'track' => array ('user'),
     );
     protected $defaultAction = 'dashboard';
     
@@ -115,6 +116,24 @@ class UserController extends Controller
         foreach (User::find ($q) as $u)
             $list[] = $u->getItemObject();
         $this->ajaxRespond ('smart_locations_list', $list);
+    }
+
+    /**
+     * store location
+     */
+    public function trackAction ()
+    {
+        $lat = Validators::getFloat ($_REQUEST['lat']);
+        $long = Validators::getFloat ($_REQUEST['long']);
+
+        if (!$lat || !$long)
+            throw new GameError ('Required fields are missing');
+
+        System::$user->latitude = $lat;
+        System::$user->longtitude = $long;
+        System::$user->save ();
+
+        $this->ajaxSuccess ();
     }
 }
 ?>
