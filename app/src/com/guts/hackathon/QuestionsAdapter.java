@@ -3,10 +3,6 @@ package com.guts.hackathon;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 public class QuestionsAdapter extends BaseAdapter implements ResponseCallback {
 	

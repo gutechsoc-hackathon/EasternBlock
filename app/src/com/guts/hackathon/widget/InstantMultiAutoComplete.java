@@ -3,7 +3,6 @@ package com.guts.hackathon.widget;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.widget.AutoCompleteTextView;
 import android.widget.MultiAutoCompleteTextView;
 
 public class InstantMultiAutoComplete extends MultiAutoCompleteTextView {
