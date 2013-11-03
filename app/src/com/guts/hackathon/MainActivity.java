@@ -140,12 +140,22 @@ public class MainActivity extends Activity {
 		
 		switch (item.getItemId()) {
 		case R.id.post_event:
-			Intent postIntent = new Intent(getBaseContext(), PostEventActivity.class);
-			startActivity(postIntent);
+			if(!ThisUser.getInstance().session.isEmpty()){
+				Intent postIntent = new Intent(getBaseContext(), PostEventActivity.class);
+				startActivity(postIntent);
+			} else {
+				Intent i = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(i);
+			}
 			return true;
 		case R.id.ask_question:
-			Intent askIntent = new Intent(getBaseContext(), QuestionFormActivity.class);
-			startActivity(askIntent);
+			if(!ThisUser.getInstance().session.isEmpty()){
+				Intent askIntent = new Intent(getBaseContext(), QuestionFormActivity.class);
+				startActivity(askIntent);
+			} else {
+				Intent i = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(i);
+			}
 			return true;
 		case R.id.log_in:
 			Intent i = new Intent(getBaseContext(), LoginActivity.class);
