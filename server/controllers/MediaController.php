@@ -62,15 +62,15 @@ class MediaController extends Controller
         $evt = Validators::getNum ($_REQUEST['event_id']);
         $evt = Event::findByPk ($evt);
                 
-        $file = substr (md5 (microtime ()), 0, 5).substr ($uf['tmp_name'], strrpos ($uf['tmp_name'], '/') + 1);
+        $file = substr (md5 (microtime ()), 0, 5).$uf['name'];
 
         move_uploaded_file ($uf['tmp_name'], BASE_DIR.'uploads/'.$file);
         $file = WEB_ROOT.'uploads/'.$file;
 
         $media = new Media ();
         $media->user_id = System::$user->id;
-        $media->url = $file;
-        $media->type_id = $type->id;
+        $media->address = $file;
+        $media->media_type_id = $type->id;
         $media->event_id = $evt->id;
         $media->save();
 

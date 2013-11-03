@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `description` varchar(255) DEFAULT NULL,
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `expires` datetime DEFAULT NULL,
-  `longtitude` double NOT NULL,
+  `longitude` double NOT NULL,
   `latitude` double NOT NULL,
   `upvoted` int(11) NOT NULL DEFAULT '0',
   `type_id` int(11) NOT NULL,
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `description`, `time_created`, `expires`, `longtitude`, `latitude`, `upvoted`, `type_id`, `location_id`, `question_id`, `user_id`) VALUES
-(5, 'stuff', '2013-11-02 22:15:21', '2013-11-02 23:15:21', 1.5, -2.33, 0, 1, 1, NULL, 1),
-(4, 'stuff', '2013-11-02 22:12:15', '2013-11-02 23:12:15', 1.5, -2.33, 0, 1, 1, NULL, 1),
-(6, 'stuff', '2013-11-02 22:19:12', '0000-00-00 00:00:00', 1.5, -2.33, 0, 1, 1, NULL, 1),
-(7, 'stuff', '2013-11-02 22:20:11', NULL, 1.5, -2.33, 0, 1, 1, NULL, 1),
-(8, 'stuff', '2013-11-02 22:20:44', '2013-11-03 22:20:44', 1.5, -2.33, 0, 1, 1, NULL, 1),
-(9, 'stuff', '2013-11-02 22:23:07', '2013-11-03 22:23:07', 1.5, -2.33, 0, 1, 1, NULL, 1),
-(10, 'stuff', '2013-11-02 22:24:24', '2013-11-03 22:24:24', 1.5, -2.33, 0, 1, 1, NULL, 1);
+INSERT INTO `events` (`id`, `description`, `time_created`, `expires`, `longitude`, `latitude`, `upvoted`, `type_id`, `location_id`, `question_id`, `user_id`) VALUES
+(5, 'stuff 1', '2013-11-02 22:15:21', '2013-11-02 23:15:21', 1.5, -2.33, 0, 1, 1, NULL, 1),
+(4, 'stuff 25', '2013-11-02 22:12:15', '2013-11-02 23:12:15', 1.5, -2.33, 0, 2, 1, NULL, 1),
+(6, 'stuff 74', '2013-11-02 22:19:12', '0000-00-00 00:00:00', 1.5, -2.33, 0, 1, 1, NULL, 1),
+(7, 'stuff 4', '2013-11-02 22:20:11', NULL, 1.5, -2.33, 0, 1, 1, NULL, 1),
+(8, 'stuff 88', '2013-11-02 22:20:44', '2013-11-03 22:20:44', 1.5, -2.33, 0, 2, 1, NULL, 1),
+(9, 'stuff 69', '2013-11-02 22:23:07', '2013-11-03 22:23:07', 1.5, -2.33, 0, 1, 1, NULL, 1),
+(10, 'stuff 7', '2013-11-02 22:24:24', '2013-11-03 22:24:24', 1.5, -2.33, 0, 1, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL,
   `seo` varchar(63) NOT NULL,
-  `longtitude` double NOT NULL,
+  `longitude` double NOT NULL,
   `latitude` double NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `locations` (
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` (`id`, `name`, `seo`, `longtitude`, `latitude`) VALUES
+INSERT INTO `locations` (`id`, `name`, `seo`, `longitude`, `latitude`) VALUES
 (1, 'University of Glasgow', 'universityofglasgow', 1.5, 3.22),
 (2, 'My Flat', 'my-flat', -4.2735219, 55.880661);
 
@@ -122,7 +122,7 @@ INSERT INTO `media_types` (`id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(63) NOT NULL,
-  `longtitude` double NOT NULL,
+  `longitude` double NOT NULL,
   `latitude` double NOT NULL,
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `expires` datetime DEFAULT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `question`, `longtitude`, `latitude`, `time_created`, `expires`, `location_id`, `user_id`) VALUES
+INSERT INTO `questions` (`id`, `question`, `longitude`, `latitude`, `time_created`, `expires`, `location_id`, `user_id`) VALUES
 (2, 'wtf', -8.3, 5.01, '2013-11-03 00:50:42', '2013-11-10 00:50:42', 1, 1);
 
 -- --------------------------------------------------------
@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(127) DEFAULT NULL,
   `rating` int(11) NOT NULL DEFAULT '0',
   `latitude` double DEFAULT NULL,
-  `longtitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
   `roles` varchar(63) NOT NULL DEFAULT 'user',
   `status` int(3) NOT NULL DEFAULT '0',
   `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `pass`, `name`, `rating`, `latitude`, `longtitude`, `roles`, `status`, `registered`) VALUES
+INSERT INTO `users` (`id`, `email`, `pass`, `name`, `rating`, `latitude`, `longitude`, `roles`, `status`, `registered`) VALUES
 (1, 'vasya@a.ua', '202cb962ac59075b964b07152d234b70', 'Vasya Petrov', 0, 55.8753052, -4.2667017, 'user', 0, '2013-11-02 15:54:57'),
 (3, 'petya@a.ua', 'e10adc3949ba59abbe56e057f20f883e', 'petya@a.ua', 0, 55.880661, -4.2735219, 'user', 0, '2013-11-02 16:51:06');
 

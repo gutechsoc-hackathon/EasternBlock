@@ -24,6 +24,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -403,6 +406,11 @@ public class LoginActivity extends Activity {
 				if(type.equals("auth_response")){
 					ThisUser.session = data.getString("sess_id");
 					ThisUser.name = data.getString("name");
+					CheckBox rememberBox = (CheckBox) findViewById(R.id.storeSessionCheckbox);
+					if (rememberBox.isChecked()) {
+						SharedPreferences pref = getSharedPreferences("REMEMBER", Context.MODE_PRIVATE);
+						pref.edit().putString("SESSION", ThisUser.session).putString("NAME", ThisUser.name).apply();
+					}
 					return true;
 				} else if(type.equals("error")){
 					String error = data.getString("msg");

@@ -5,8 +5,11 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.Intent;
 import android.util.Log;
+=======
+>>>>>>> 4a58846c67849568be8c18c8fe5fd129a1c6abc9
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

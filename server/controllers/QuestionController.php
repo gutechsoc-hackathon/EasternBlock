@@ -59,7 +59,7 @@ class QuestionController extends Controller
 
         foreach (Question::find ($q) as $q)
             $list[] = $q->getItemObject();
-        $this->ajaxRespond ('smart_locations_list', $list);
+        $this->ajaxRespond ('smart_questions_list', $list);
     }
 
     /**
@@ -68,14 +68,14 @@ class QuestionController extends Controller
     public function registerAction ()
     {
         $question = Validators::getMysqlSafe ($_REQUEST['question']);
-        $longtitude = Validators::getFloat ($_REQUEST['longtitude']);
+        $longitude = Validators::getFloat ($_REQUEST['longitude']);
         $latitude = Validators::getFloat ($_REQUEST['latitude']);
         $tags = array ();
         if ($_REQUEST['tags'])
-            $tags = json_decode ($_REQUEST['tags'], true);
+            $tags = explode (',', Validators::getMysqlSafe ($_REQUEST['tags']));
         $location_id = Validators::getNum ($_REQUEST['location_id']);
 
-        if (!$longtitude || !$latitude || !$location_id)
+        if (!$longitude || !$latitude || !$location_id)
             throw new GameError ('Required fields are missing');
 
         // this would crash if an id is wrong
@@ -84,7 +84,7 @@ class QuestionController extends Controller
         // store a question
         $q = new Question ();
         $q->question = $question;
-        $q->longtitude = $longtitude;
+        $q->longitude = $longitude;
         $q->latitude = $latitude;
         $q->user_id = System::$user->id; 
         $q->location_id = $location_id;

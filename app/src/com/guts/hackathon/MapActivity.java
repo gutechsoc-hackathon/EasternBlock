@@ -1,5 +1,6 @@
 package com.guts.hackathon;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
@@ -13,30 +14,66 @@ import android.view.Menu;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 @SuppressLint("NewApi")
 public class MapActivity extends Activity {
 	
 	private GoogleMap map;
-	private HashMap<String, MarkerOptions> markers = new HashMap<String, MarkerOptions>();
+	private HashMap<String, LocationItem> markers = new HashMap<String, LocationItem>();
 	private boolean myLocationCentered = false;
 	private long lastPostLocationTime = System.currentTimeMillis();
 	private PostToServerTask task;
 	private Location lastLocation;
+	private ArrayList<Event> events;
+	private ArrayList<Question> questions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		
+
 	    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 	            .getMap();
 	    
-//	    setMarker("1", createOptions("Glasgow", 55.8580, -4.2590, "text1"));
-//	    setMarker("2", createOptions("Glasgow", 0, 0, "text2"));
+	    map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+			@Override
+			public void onInfoWindowClick(Marker arg0) {
+				String id = arg0.getId();
+				LocationItem item = markers.get(id);
+				System.out.println(id);
+				System.out.println(item);
+				
+				if (item.obj instanceof Event) {
+					Event e = (Event)item.obj;
+					System.out.println(e.getDescription());
+				} else if (item.obj instanceof Question) {
+					Question q = (Question)item.obj;
+					System.out.println(q.getQuestion());
+				}
+				
+			}
+	    });
+
+		for (Event x: DataAccess.getEvents()) {
+				System.out.println(x.getLocation().getLatitude() + " " +x.getLocation().getLongitude());
+		}	    
+	    
+		
+		for (Event x: DataAccess.getEvents()) {
+			setMarker(x);
+		}
+
+		for (Question x: DataAccess.getQuestions()) {
+			setMarker(x);	
+		}
+		
   	    
   	    map.setMyLocationEnabled(true);
   	    
@@ -71,53 +108,56 @@ public class MapActivity extends Activity {
 		return true;
 	}
 	
-	private void setMarker(String id, MarkerOptions options) {
-		markers.put(id, options);
-		updateMap();
-	}
-	
-	private void removeMarker(String id) {
-		markers.remove(id);
-		updateMap();
-	}
-	
-	private MarkerOptions getMarker(String id) {
-		return markers.get(id);
-	}
-	
-	private void updateMap() {
-		map.clear();
-		for (String id: markers.keySet()) {
-			MarkerOptions options = markers.get(id);
-			map.addMarker(options);			
-		}
-		// other info
-	}
-	
-	private MarkerOptions createOptions(String title, double lat, double lon, String snippetText) {
+	private String setMarker(Object obj) {
 		MarkerOptions options = new MarkerOptions();
 		
-		options.position(new LatLng(lat, lon));
-		options.title(title);
-		options.snippet(snippetText);
+		if (obj instanceof Event) {
+			Event e = (Event)obj;
+					
+			options.title(e.getUser_name());
+			options.position(new LatLng(e.getLocation().getLatitude(), e.getLocation().getLongitude()));
+			options.snippet(e.getDescription());
+			options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+								
+		} else if (obj instanceof Question) {
+			Question q = (Question)obj;
+			
+			options.title(q.getUser_name());
+			options.position(new LatLng(q.getLocation().getLatitude(), q.getLocation().getLongitude()));
+			options.snippet(q.getQuestion());
+		}
+
+		Marker m = map.addMarker(options);
+		System.out.println("   " + m.getId());
+		markers.put(m.getId(), new LocationItem(obj, options));
 		
-		return options;
+		return m.getId();
 	}
+	
 	
 	private float getCurrentZoomLevel() {
 		return map.getCameraPosition().zoom;
 	}
 	
 	private void moveToMarker(String id) {
-		MarkerOptions options = markers.get(id);
+		MarkerOptions options = markers.get(id).options;
 		map.animateCamera(CameraUpdateFactory.newLatLng(options.getPosition()));
 	}
 
-	
 	private class ResponseCallbackInner implements ResponseCallback {
 		@Override
 		public void processResponse(String response) {
 			
 		}		
+	}
+	
+	private class LocationItem {
+		public Object obj;
+		public MarkerOptions options;
+		
+		public LocationItem(Object obj, MarkerOptions options) {
+			this.obj = obj;
+			this.options = options;
+		}
 	}
 }
