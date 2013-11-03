@@ -71,18 +71,5 @@ class LocationController extends Controller
             'location_id' => $loc->id,
         ) );
     }
-
-    public function getExpires ($expires)
-    {
-        $q = '';
-        switch ($expires)
-        {
-            case '3': $q = 'NOW() + INTERVAL 30 DAY'; break;
-            case '2': $q = 'NOW() + INTERVAL 7 DAY'; break;
-            case '1': $q = 'NOW() + INTERVAL 24 HOUR'; break;
-            default: $q = 'NOW() + INTERVAL 1 HOUR'; break;
-        }
-        System::doMysql ("UPDATE ".Event::getTableName()." SET expires = '".$q."' WHERE id=".$this->id.";");
-    }
 }
 ?>
