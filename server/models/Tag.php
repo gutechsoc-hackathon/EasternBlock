@@ -13,7 +13,7 @@ class Tag extends ActiveRecord
         if (!$arr)
             return $list;
         foreach ($arr as $tag)
-            $list[] = $tag->name;
+            $list[] = trim ($tag->name);
         return $list;
     }
 

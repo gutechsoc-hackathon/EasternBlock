@@ -74,7 +74,7 @@ class EventsController extends Controller
         $type_id = Validators::getNum ($_REQUEST['type_id']);
         $tags = array ();
         if ($_REQUEST['tags'])
-            $tags = json_decode ($_REQUEST['tags'], true);
+            $tags = explode (',', Validators::getMysqlSafe ($_REQUEST['tags']));
         $location_id = Validators::getNum ($_REQUEST['location_id']);
         $question_id = Validators::getNum ($_REQUEST['question_id']);
 
