@@ -49,11 +49,11 @@ public class MapActivity extends Activity {
   	    			map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
   	    			myLocationCentered = true;
   	    		}
-  	    		if (((System.currentTimeMillis() - lastPostLocationTime)/1000) > 1) {
+  	    		if (((System.currentTimeMillis() - lastPostLocationTime)/1000) > 5*60) {
   	    			lastPostLocationTime = System.currentTimeMillis(); 
   	    			task = new PostToServerTask();
   	    			task.setDone(new ResponseCallbackInner());
-  	    			task.execute("r","user/track", "lat", Double.toString(lastLocation.getLatitude()), "long", Double.toString(lastLocation.getLongitude()));
+  	    			task.execute("r","user/track", "lat", Double.toString(lastLocation.getLatitude()), "long", Double.toString(lastLocation.getLongitude()), "sess_id", ThisUser.session);
   	    		}
   	    	}
 			public void onStatusChanged(String provider, int status, Bundle extras) {}

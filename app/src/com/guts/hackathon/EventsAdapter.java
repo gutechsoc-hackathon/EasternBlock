@@ -46,9 +46,12 @@ public class EventsAdapter extends BaseAdapter implements ResponseCallback{
 		//TODO: check response before attempting deserialization
 		response = response.substring(response.indexOf("["),response.lastIndexOf("]")+1);
 		events = gson.fromJson(response, listType);
-		Log.d("derp","herp");
 		notifyDataSetChanged();
-		MainActivity.updateSizes();
+		DataAccess.updateEvents(events);
+		DataAccess.getEvents().get(0);
+		String tString = DataAccess.getEvents().get(1).getDescription();
+		String fString = DataAccess.getEvents().get(0).getUser_name();
+
 	}
 
 	@Override
@@ -86,6 +89,14 @@ public class EventsAdapter extends BaseAdapter implements ResponseCallback{
 			}
 		});
 		return elem;
+	}
+
+	public ArrayList<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(ArrayList<Event> events) {
+		this.events = events;
 	}
 
 }

@@ -32,6 +32,9 @@ public class PostToServerTask extends AsyncTask<String, Void, String>{
 		try {
 			// Add your data
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+			if (!ThisUser.session.isEmpty()) {
+				nameValuePairs.add(new BasicNameValuePair("sess_id", ThisUser.session));
+			}
 			for (int s = 0; s < params.length; s+=2) {
 				nameValuePairs.add(new BasicNameValuePair(params[s], params[s+1]));
 			}

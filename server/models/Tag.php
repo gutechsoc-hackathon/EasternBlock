@@ -10,6 +10,8 @@ class Tag extends ActiveRecord
     public static function getList ($arr)
     {
         $list = array();
+        if (!$arr)
+            return $list;
         foreach ($arr as $tag)
             $list[] = $tag->name;
         return $list;

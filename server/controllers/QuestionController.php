@@ -23,7 +23,15 @@ class QuestionController extends Controller
     public function listAction ()
     {
         $list = array ();
-        foreach (Question::find() as $question)
+        $where = '1=1 ORDER BY time_created DESC';
+        
+        if (isset ($_REQUEST['from']))
+        {
+            $from = Validators::getDateFormat ($_REQUEST['from']);
+            $where = "time_created > '".$from."' ORDER BY time_created DESC";
+        }
+
+        foreach (Question::find ($where) as $question)
             $list[] = $question->getItemObject();
         $this->ajaxRespond ('questions_list', $list);
     }
@@ -42,6 +50,13 @@ class QuestionController extends Controller
 
         $list = array ();
         $q = Query::getDistQuery ($dist, $lat, $long);
+
+        if (isset ($_REQUEST['from']))
+        {
+            $from = Validators::getDateFormat ($_REQUEST['from']);
+            $q .= " AND time_created > '".$from."' ORDER BY time_created DESC";
+        }
+
         foreach (Question::find ($q) as $q)
             $list[] = $q->getItemObject();
         $this->ajaxRespond ('smart_locations_list', $list);

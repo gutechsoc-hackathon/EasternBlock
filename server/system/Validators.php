@@ -39,6 +39,11 @@
             return preg_replace ('/[^a-z0-9_.@-]/i', '', $data);
         }
 
+        public static function getDateFormat ($data)
+        {
+            return preg_replace ('/[^0-9 :-]/', '', $data);
+        }
+
         public static function getSeo ($data)
         {
             $source = array (' ', ',', '_', '–', '—', '+', '@');
