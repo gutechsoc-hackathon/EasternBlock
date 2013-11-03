@@ -108,7 +108,7 @@ public class MapActivity extends Activity {
 		return true;
 	}
 	
-	private void setMarker(Object obj) {
+	private String setMarker(Object obj) {
 		MarkerOptions options = new MarkerOptions();
 		
 		if (obj instanceof Event) {
@@ -126,17 +126,13 @@ public class MapActivity extends Activity {
 			options.position(new LatLng(q.getLocation().getLatitude(), q.getLocation().getLongitude()));
 			options.snippet(q.getQuestion());
 		}
-		
-		
-	
 
 		Marker m = map.addMarker(options);
 		System.out.println("   " + m.getId());
 		markers.put(m.getId(), new LocationItem(obj, options));
 		
+		return m.getId();
 	}
-	
-
 	
 	
 	private float getCurrentZoomLevel() {
@@ -148,7 +144,6 @@ public class MapActivity extends Activity {
 		map.animateCamera(CameraUpdateFactory.newLatLng(options.getPosition()));
 	}
 
-	
 	private class ResponseCallbackInner implements ResponseCallback {
 		@Override
 		public void processResponse(String response) {
