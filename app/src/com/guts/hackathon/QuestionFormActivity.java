@@ -1,5 +1,7 @@
 package com.guts.hackathon;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +10,9 @@ import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
-
 public class QuestionFormActivity extends Activity {
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionform);
 
@@ -50,7 +51,8 @@ public class QuestionFormActivity extends Activity {
     private void setupSubmit() {
         Button button = (Button) findViewById(R.id.submitButton);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 finish();
             }
         });
