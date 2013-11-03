@@ -48,6 +48,7 @@ public class EventsAdapter extends BaseAdapter implements ResponseCallback{
 		events = gson.fromJson(response, listType);
 		Log.d("derp","herp");
 		notifyDataSetChanged();
+		MainActivity.updateSizes();
 	}
 
 	@Override
